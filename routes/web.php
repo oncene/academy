@@ -18,3 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
+    Route::get('/filemanager', function (){ return view('pages.filemanager_todo'); })->name('filemanager');
+
+    Route::resource('/calendario', 'CalendarioController', ['except' => ['show', 'create']]);
+    Route::get('calendario/calendar','CalendarioController@getCalendar');
+
+    Route::post('/conf','ConfiguracionController@update')->name('configur');
+
+});

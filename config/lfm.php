@@ -43,7 +43,7 @@ return [
 
     // Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on.
     // You should create routes to serve images if it is not set to public.
-    'base_directory' => 'public',
+    'base_directory' => 'storage/filemanager',
 
     'images_folder_name' => 'photos',
     'files_folder_name'  => 'files',
@@ -60,7 +60,7 @@ return [
     // The default display type for items.
     // Supported: "grid", "list"
     'images_startup_view' => 'grid',
-    'files_startup_view' => 'list',
+    'files_startup_view' => 'grid',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +121,23 @@ return [
         'image/svg+xml',
         'application/pdf',
         'text/plain',
+        'video/mp4',
+        'video/*',
+        'audio/ogg',
+        'audio/*',
+        'application/docx',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-powerpoint',
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        'application/vnd.ms-access',
+        'text/html',
+        'application/x-rar-compressed',
+        'application/x-tar',
+        'application/zip',
+        'application/octet-stream',
     ],
 
     /*
@@ -151,6 +168,9 @@ return [
         'png'  => 'PNG Image',
         'ppt'  => 'Microsoft PowerPoint',
         'pptx' => 'Microsoft PowerPoint',
+        'txt' => 'Texto Plano',
+        'mp3' => 'Archivo de audio',
+        'mp4' => 'Archivo de video',
     ],
 
     'file_icon_array' => [
@@ -166,6 +186,9 @@ return [
         'png'  => 'fa-file-image-o',
         'ppt'  => 'fa-file-powerpoint-o',
         'pptx' => 'fa-file-powerpoint-o',
+        'txt'  => 'fa-file-text-o',
+        'mp3'  => 'fa-file-audio-o',
+        'mp4'  => 'fa-file-video-o',
     ],
 
     /*

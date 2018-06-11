@@ -1,0 +1,260 @@
+/*================================================================================
+	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.card-body-top{
+    margin-top: -30px;
+}
+.panel-hide-left{
+	display: none;
+}
+.panel-show-left{
+	margin-left: -14px;
+}
+.panel-show-left-show{
+	display: none;
+}
+
+
+
+/***************************MODAL LEFT ********************/
+.modal.right .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 320px;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
+}
+
+.modal.right .modal-content {
+	height: 100%;
+	overflow-y: auto;
+	border: 0px;
+    border-radius: 0px;
+}
+
+.modal.right .modal-body {
+	padding: 15px 15px 80px;
+}
+
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+	transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.show .modal-dialog {
+	right: 0;
+}
+
+
+/***************************CONF color ********************/
+.config-color{
+	height: 35px;
+    width: 35px;
+    display: inline-block !important;
+    float: right;
+    margin: 4px;
+    cursor: pointer;
+}
+/***************************** ADMINISTRACION ******************/
+.nav-vertical .nav-left.nav-tabs li.nav-item a.nav-link {
+	min-width: 8.5rem !important;
+	border-right: 1px solid #ddd;
+}
+.nav-vertical .nav-left.nav-tabs.nav-border-left li.nav-item a.nav-link.active {
+	border-left: 3px solid #168DEE !important;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	color: #555;
+}
+.nav-vertical .nav-left.nav-tabs.nav-border-left li.nav-item a.nav-link {
+	color: #168DEE !important;
+}
+
+/************************CALENDAR***********/
+.calendar-event-button .calendar-events{
+	color: white;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-bottom: 3px;
+	padding-left: 6px;
+	border-radius: 2px;
+}
+.calendar-event-button .calendar-events:hover{
+	cursor: move;
+}
+.btn-group .fc-color-picker li a {
+	list-style: none;
+	margin: 2px;
+	width: 35px;
+	height: 35px;
+	/* background-color: red; */
+	float: left;
+	border-radius: 2px;
+}
+.fc-unthemed .fc-today {
+	background: #08ddc1 !important;
+	position: relative;
+	color: #fff;
+}
+.fc-button-group  button{
+	color: white;
+	background-color: red;
+}
+#fc-color-group{
+	display: grid;
+}
+.fc-color-picker{
+	list-style: none;
+	padding-left: 0px;
+}
+.fc-button-padding{
+	margin-top: 10px;
+}
+.icon-close{
+	margin-top: -18px;
+	color: white;
+}
+.icon-close:hover{
+	color: white;
+}
+.modal-open {
+	padding-right: 0px !important;
+}
+.fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+	 border-color: #D7DADF !important;
+}
+th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-number span {
+	padding: 10px;
+	background-color: #03A9F3 !important;
+	color: white !important;
+}
+.fc-unthemed th {
+	border-color: white !important;
+}
+.btn-outline-primary, .fc button {
+	color: #03A9F3 !important;
+	background-color: transparent;
+	background-image: none;
+	border-color: #03A9F3 !important;
+}
+.btn-outline-primary:hover, .fc button:hover {
+	color: #fff !important;
+	background-color: #03A9F3 !important;
+	border-color: #03A9F3 !important;
+}
+.btn-outline-primary:focus, .fc button:focus, .btn-outline-primary.focus, .fc button.focus {
+	box-shadow: 0 0 0 0.2rem rgba(3, 169, 243, 0.5) !important;
+}
+
+
+/************************* DATATABLES *******************/
+.buttons-html5 {
+	padding: .9rem 1.2rem !important;
+	margin-left: -1px !important;
+	line-height: 1.25 !important;
+	color: #515365 !important;
+	background-color: #fff !important;
+	border: 1px solid #e6ecf5 !important;
+}
+.buttons-html5:hover {
+	color: #515365 !important;
+	background-color: #F5F5F5 !important;
+	border: 1px solid #ECECEC !important;
+	cursor: pointer;
+}
+.table thead th {
+	color:  #888da8;
+}
+.table tfoot th {
+	color:  #888da8;
+}
+.dataTables_wrapper {
+	position: relative;
+	display: grid !important;
+}
+
+.pagination .page-item.active > .page-link, .pagination .page-item.active > .page-link:focus, .pagination .page-item.active > .page-link:hover {
+	background-color: #03A9F3 !important;
+	border-color: #03A9F3;
+	color: #FFFFFF;
+	border-radius: 50%;
+}
+
+.pagination .page-item.active > .page-link {
+	color: #E3E3E3;
+	box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.2) !important;
+}
+.pagination .page-item.disabled > .page-link {
+	opacity: .5;
+	background-color: rgba(255, 255, 255, 0.2);
+	color: #FFFFFF;
+}
+.page-item.disabled .page-link {
+	color: #6B6F82;
+	pointer-events: none;
+	cursor: auto;
+	background-color: #fff;
+	border-color: white !important;
+}
+.pagination .page-link {
+	color: #1E9FF2;
+	border: 0px solid white !important;
+}
+.table-striped tbody tr.odd.selected, .table-striped tbody tr.even.selected {
+	background-color: #1E9FF2 !important;
+	color: #fff;
+}
+.page-item:last-child .page-link {
+	border-top-right-radius: 0rem !important;
+	border-bottom-right-radius: 0rem !important;
+}
+
+.page-link:not(:disabled):not(.disabled) {
+	cursor: pointer;
+	border-radius: 50px !important;
+	background-color: aliceblue;
+}
+/***************** MODAL **************/
+.modal-close{
+	font-size: 30px;
+	color: #A3A9C4 !important;
+}
+.modal-step-top{
+	margin-top: -40px ;
+}
+
+/*input:hover{*/
+/*box-shadow: 0 0 0 0.16rem rgba(3, 169, 243, 0.5) !important;*/
+/*}*/
+/***************** MULTI SELECT DUAL **************/
+.bootstrap-duallistbox-container select {
+	overflow-y: scroll;
+	height: 200px !important;
+}
+/***************** TOAST WITH **************/
+.jq-toast-wrap {
+	width: 310px !important;
+}
+/***************** TEXT VALIDATION **************/
+.help-block.form-error{
+	color: #FF4259;
+}
+
+
+
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\System;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
@@ -17,7 +18,7 @@ class RolController extends Controller
      */
 
     public function userDatatablesPrivilegioAll(){
-        $data = DB::select(DB::RAW('select u.id,u.name,u.email,r.name as privilegio,u.deleted_at from users u left join model_has_roles mr on u.id=mr.model_id left join roles r on mr.role_id=r.id'));
+        $data = DB::select(DB::RAW('select u.id,u.name,u.email,group_concat(r.name SEPARATOR ",") as privilegio,u.deleted_at from users u left join model_has_roles mr on u.id=mr.model_id left join roles r on mr.role_id=r.id group by u.id,u.name,u.email,u.deleted_at'));
         return datatables()->of($data)->toJson();
     }
 
@@ -45,11 +46,29 @@ class RolController extends Controller
 
     public function permissionWhereRolCreate(Request $request){
         if ($request->ajax()) {
+            $this->validate($request, ['role' => 'required'],['role.required' =>'El rol es obligatorio',]);
             $role_id = $request->input('role');
             $role = Role::find($role_id);
             $data = json_decode($request->input('permissions'));
 
             $role->syncPermissions($data);
+
+            if ($data) {
+                return response()->json(['success' => 'true']);
+            }else {
+                return response()->json(['success' => 'false']);
+            }
+        }
+    }
+
+    public function userWhereRolCreate(Request $request){
+        if ($request->ajax()) {
+            $this->validate($request, ['user' => 'required'],['user.required' =>'El Usuario es obligatorio',]);
+            $user_id = $request->input('user');
+            $user = User::find($user_id);
+            $data = json_decode($request->input('rol'));
+
+            $user->syncRoles($data);
 
             if ($data) {
                 return response()->json(['success' => 'true']);

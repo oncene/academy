@@ -100,12 +100,12 @@
                                         </div>
                                         <br>
                                         <div>
-                                            <select multiple="multiple" size="10" class="duallistbox" id="dualPermisos" name="permission_select">
+                                            <select multiple="multiple" size="10" class="duallistbox" id="select_dual_permisos" name="permission_select">
 
                                             </select>
                                             <!-- Dual Listbox end -->
                                         </div>
-                                        <button class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
+                                        <button type="submit" class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
 
                                     </form>
                                 </div>
@@ -132,7 +132,7 @@
                                             </select>
                                             <!-- Dual Listbox end -->
                                         </div>
-                                        <button class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
+                                        <button type="submit" class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
                                     </form>
                                 </div>
                             </div>
@@ -245,11 +245,11 @@
 
         $('#rol_select2').on('select2:select', function (e) {
             var data_id = e.params.data.id;
-            $('#dualPermisos').empty();
+            $('#select_dual_permisos').empty();
             $.getJSON("{{route('permissionWhereRol.show')}}/"+data_id, function (data) {
                 $.each(data, function (index,value) {
-                    $('#dualPermisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
-                    $('#dualPermisos').bootstrapDualListbox('refresh', true);
+                    $('#select_dual_permisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
+                    $('#select_dual_permisos').bootstrapDualListbox('refresh', true);
                 });
             });
         });
@@ -344,18 +344,38 @@
                     {data: 'name'},
                     {data: 'email'},
                     {data: 'privilegio',render:function (data, type, full, meta) {
-                            if(full.privilegio === 'Administrador'){
-                                return '<span class="badge badge-danger">'+full.privilegio+'</span>';
-                            }else if (full.privilegio === 'Secretariado'){
-                                return '<span class="badge badge-warning">'+full.privilegio+'</span>';
-                            }else if(full.privilegio === 'Docente'){
-                                return '<span class="badge badge-info">'+full.privilegio+'</span>';
-                            }else if(full.privilegio === null){
-                                return '<span class="badge badge-default">'+full.privilegio ? full.privilegio : "" +'</span>';
+                            var dataArrayReturn = [];
+                            var dataAll = full.privilegio;
+                        var separador = ",";
+                        var dataArray = dataAll.split(separador);
+                        if(dataArray.length > 1) {
+                            $.each(dataArray, function (index, value) {
+                                if (value === 'Administrador') {
+                                    dataArrayReturn[index] = '<span class="badge badge-danger">' + value + '</span>';
+                                } else if (value === 'Secretariado') {
+                                    dataArrayReturn[index] = '<span class="badge badge-warning">' + value + '</span>';
+                                } else if (value === 'Docente') {
+                                    dataArrayReturn[index] = '<span class="badge badge-info">' + value + '</span>';
+                                } else if (value === null) {
+                                    dataArrayReturn[index] = '<span class="badge badge-default">' + value ? value : "" + '</span>';
+                                } else {
+                                    dataArrayReturn[index] = '<span class="badge badge-primary">' + value + '</span>';
+                                }
+                            });
+                            return dataArrayReturn;
+                        }else{
+                            if(dataArray.toString() === 'Administrador'){
+                                return '<span class="badge badge-danger">'+dataArray+'</span>';
+                            }else if (dataArray.toString() === 'Secretariado'){
+                                return '<span class="badge badge-warning">'+dataArray+'</span>';
+                            }else if(dataArray.toString() === 'Docente'){
+                                return '<span class="badge badge-info">'+dataArray+'</span>';
+                            }else if(dataArray.toString() === null){
+                                return '<span class="badge badge-default">'+dataArray ? dataArray : "" +'</span>';
                             }else{
-                                return '<span class="badge badge-default">'+full.privilegio+'</span>';
+                                return '<span class="badge badge-primary">'+dataArray+'</span>';
                             }
-
+                        }
                         }},
                     {data: 'deleted_at',render:function (data, type, full, meta) {
                             if(full.deleted_at === null){
@@ -542,8 +562,9 @@
         $("#form_rol_permission").submit(function(e) {
             e.preventDefault();
             var role = $('#rol_select2').val();
-            permissions = JSON.stringify($('#dualPermisos').val());
-            console.log(permissions);
+            permissions = JSON.stringify($('#select_dual_permisos').val());
+            // console.log(permissions);
+            // val('(' + text + ')');
             // console.log(JSON.stringify(data));
             // var permissions = $.map( data, function( value, key ) {
             //     return value;
@@ -562,6 +583,37 @@
                 success: function (data) {
                     if (data.success) {
                         messageSuccess('Correcto','Registro adicionado correctamente');
+                    }
+                },
+                error: function (data) {
+                    $.each(data.responseJSON.errors, function (index, error) {
+                        messageError('Error al registrar',error);
+                    });
+                    if(data.status == 422){
+                        console.clear();
+                    }
+                }
+            });
+        });
+
+        $("#form_user_rol").submit(function(e) {
+            e.preventDefault();
+            var user = $('#users_select2').val();
+            rol = JSON.stringify($('#select_dual_roles').val());
+            var route = "{{ route('userWhereRolCreate.store') }}";
+            var token = $('input[name=_token]').val();
+            $.ajax({
+                url: route,
+                headers: {'X-CSRF-TOKEN': token},
+                type: "POST",
+                datatype: 'json',
+                data:{
+                    user:user,rol:rol,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        messageSuccess('Correcto','Registro adicionado correctamente');
+                        listar_table_privilegios();
                     }
                 },
                 error: function (data) {

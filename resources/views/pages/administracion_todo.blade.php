@@ -171,7 +171,9 @@
 <script>
     $(document).ready(function() {
         moment.locale('es');
-
+        $(".select2").select2({
+            language: "es"
+        });
         listarExample();
         listar_table_privilegios();
 

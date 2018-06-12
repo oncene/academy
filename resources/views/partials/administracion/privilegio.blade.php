@@ -1,8 +1,5 @@
 
     <button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 float-right" data-toggle="modal" data-target="#privilegiosModal" onclick="privilegioInit();"><i class="ft-plus"></i>Adicionar</button>
-    <div class="controls">
-        <input type="button" name="email" class="form-control" onclick="pruebatod();">
-    </div>
     <p>Biscuit i</p>
     <table id="table_privilegios" class="table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
         <thead>
@@ -28,173 +25,193 @@
         </tbody>
     </table>
 
+
     <!-- Modal privilegios -->
     <div class="modal fade text-left" id="privilegiosModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <!-- Form wizard with icon tabs section start -->
-                    <section id="icon-tabs">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Form wizard with icon tabs</h4>
-                                        {{--<a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>--}}
-                                        <div class="heading-elements">
-                                            <ul class="list-inline mb-0">
-                                                <li data-dismiss="modal"><a data-action="close" class="modal-close"><i class="ft-x"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-content collapse show">
-                                        <div class="card-body modal-step-top">
-                                            <div class="icons-tab-steps wizard-circle">
-                                                <!-- Step 1 -->
-                                                <h6><i class="step-icon ft-slack"></i> Roles</h6>
-                                                <fieldset>
-                                                    <div class="row ">
-                                                        <div class="col-md-12">
-                                                            <h4 class="form-section"><i class="ft-slack"></i> Creacion de roles</h4>
-                                                            <form method="post" id="rol_form" enctype="multipart/form-data">
-                                                                <div class="form-group row">
-                                                                    <div class="col-md-3">
-                                                                        <label class=" label-control float-right" for="projectinput1">Ingresar Nombre:</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="text" id="projectinput1" class="form-control" placeholder="Nombre del rol" name="name" data-validation="required, length, custom" data-validation-length="min4">
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <button type="submit" class="btn btn-info"><i class="ft-plus"></i> Crear </button>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                        <br>
-                                                        <div class="col-md-12">
-                                                            <table id="table_rol" class="table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>Nombre</th>
-                                                                    <th>Nombre del guard</th>
-                                                                    <th>Fecha de crecion</th>
-                                                                    <th>Accion</th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tfoot>
-                                                                <tr>
-                                                                    <th>Nombre</th>
-                                                                    <th>Nombre del guard</th>
-                                                                    <th>Fecha de crecion</th>
-                                                                    <th>Accion</th>
-                                                                </tr>
-                                                                </tfoot>
-                                                                <tbody>
+                    <div class="card-body">
+                    <div id="smartwizard">
+                        <ul>
+                            <li><a href="#step-1"><i class="ft-slack step-icons"></i> <br>Creacion de roles<br /></a></li>
+                            <li><a href="#step-2"><i class="ft-unlock step-icons"></i> <br>Asignar permisos a roles<br /></a></li>
+                            <li><a href="#step-3"><i class="ft-user-check step-icons"></i> <br>Asignar roles a usuarios<br /></a></li>
+                        </ul>
 
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-
-                                                </fieldset>
-                                                <!-- Step 2 -->
-                                                <h6><i class="step-icon ft-unlock"></i>Asignar permisos</h6>
-                                                <fieldset>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <form id="form_rol_permission" method="post">
-                                                                <h4 class="form-section"><i class="ft-unlock"></i> Asignacion de permisos a roles</h4>
-                                                                <div class="form-group row">
-                                                                    <div class="col-md-3">
-                                                                        <label class=" label-control float-right" for="projectinput1">Seleccionar Rol:</label>
-                                                                    </div>
-                                                                    <div class="col-md-9">
-                                                                        <select class="selectivity" id="rol_select" name="rol_select" data-placeholder="Seleccionar el rol">
-                                                                            {{--<optgroup id="rol_select_content" label="Roles">--}}
-                                                                            {{--</optgroup>--}}
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <br>
-                                                                <div>
-                                                                    <select multiple="multiple" size="10" class="duallistbox" id="dualPermisos" name="permission_select">
-
-                                                                    </select>
-                                                                    <!-- Dual Listbox end -->
-                                                                </div>
-                                                                <button type="submit" class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
-
-                                                            </form>
-
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                                <!-- Step 3-->
-                                                <h6><i class="step-icon ft-user-check"></i>Asignar Roles</h6>
-                                                <fieldset>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <form id="form_user_rol">
-                                                                <h4 class="form-section"><i class="ft-user-check"></i> Asignacion de roles a usuarios</h4>
-                                                                <div class="form-group row">
-                                                                    <div class="col-md-3">
-                                                                        <label class=" label-control float-right" for="projectinput1">Ingresar Nombre:</label>
-                                                                    </div>
-                                                                    <div class="col-md-9">
-                                                                        <select class="selectivity" id="select_user" data-placeholder="Seleccione un usuario">
-
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <br>
-                                                                <div>
-                                                                    <select multiple="multiple" size="10" id="select_dual_roles" class="duallistbox">
-
-                                                                    </select>
-                                                                    <!-- Dual Listbox end -->
-                                                                </div>
-                                                                <button type="submit" class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                                {{--</form>--}}
+                        <div class="mt-1">
+                            <div id="step-1" class="">
+                                <div class="col-md-12">
+                                    <form id="rol_form">
+                                        {{ csrf_field() }}
+                                        <h4 class="form-section"><i class="ft-slack"></i> Creacion de roles</h4>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label class=" label-control float-right" for="rol_name">Ingresar Nombre:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" id="rol_name" class="form-control" placeholder="Nombre del rol" name="name" data-validation="required, length, custom" data-validation-length="min4">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="submit" id="submit_rol_form" class="btn btn-info"><i class="ft-plus"></i> Crear </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
+                                    <br>
+                                    <table id="table_rol" class="table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Nombre del guard</th>
+                                            <th>Fecha de crecion</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Nombre del guard</th>
+                                            <th>Fecha de crecion</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div id="step-2" class="">
+                                <div class="col-md-12">
+                                    <form id="form_rol_permission">
+                                        {{ csrf_field() }}
+                                        <h4 class="form-section"><i class="ft-unlock"></i> Asignacion de permisos a roles</h4>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label class=" label-control float-right" for="projectinput1">Seleccionar Rol:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <select class="selectivity" id="rol_select" name="rol_select" data-placeholder="Seleccionar el rol">
+                                                    <optgroup id="rol_select_content" label="Roles">
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <select multiple="multiple" size="10" class="duallistbox" id="dualPermisos" name="permission_select">
+
+                                            </select>
+                                            <!-- Dual Listbox end -->
+                                        </div>
+                                        <button class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
+
+                                    </form>
                                 </div>
                             </div>
+                            <div id="step-3" class="">
+                                <div class="col-md-12">
+                                    <form id="form_user_rol">
+                                        {{ csrf_field() }}
+                                        <h4 class="form-section"><i class="ft-user-check"></i> Asignacion de roles a usuarios</h4>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label class=" label-control float-right" for="projectinput1">Ingresar Nombre:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <select class="selectivity" id="select_user" data-placeholder="Seleccione un usuario">
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <select multiple="multiple" size="10" id="select_dual_roles" class="duallistbox">
+
+                                            </select>
+                                            <!-- Dual Listbox end -->
+                                        </div>
+                                        <button class="btn btn-outline-info mt-1 mb-1 mr-0 ml-0 btn-xs btn-round btn-glow btn-block" ><i class="ft-plus"></i> Actualizar datos </button>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
-                    </section>
+                    </div>
+
+
+
+
                     <!-- Form wizard with icon tabs section end -->
+                </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
     @section('script')
     <script>
         $(document).ready(function() {
-            llenardatos();
-            // list_data_users_selectivity();
+            list_data_roles_selectivity();
+            list_data_users_selectivity();
+
+            // iniciar_plugins();
+
+
+            $('#smartwizard').smartWizard({
+                selected: 0,
+                autoAdjustHeight:true,
+                theme: 'default',
+                transitionEffect:'fade',
+                showStepURLhash: false,
+                lang: {  // Language variables
+                    next: 'Siguiente',
+                    previous: 'Anterior'
+                },
+                toolbarSettings: {
+                    toolbarPosition: 'bottom',
+                    toolbarButtonPosition: 'right',
+                    toolbarExtraButtons: [
+                        $('<button></button>').text('Resetear')
+                            .addClass('btn btn-warning')
+                            .on('click', function(){ $('#smartwizard').smartWizard("reset"); }),
+                        $('<button></button>').text('Cerrar')
+                            .addClass('btn btn-danger')
+                            .on('click', function(){ $('#privilegiosModal').modal("hide"); })
+                    ]
+                }
+            });
+            // privilegioInit();
+
+        });
+
+        $('#privilegiosModal').on('hidden.bs.modal', function () {
+            // alert('cerra')
+            // $('#rol_select').selectivity().empty();
+            // $('#select_user').selectivity().empty();
+            $('#privilegiosModal #smartwizard #rol_form').find('form').trigger('reset');
 
         });
 
         /********************************************* PRIVILEGIOS ***********************************************/
-        var privilegioInit = function () {
-            $(".icons-tab-steps").steps({
-                headerTag: "h6",
-                bodyTag: "fieldset",
-                transitionEffect: "fade",
-                titleTemplate: '<span class="step">#index#</span> #title#',
-                labels: {
-                    finish: 'Close'
-                },
-                onFinished: function (event, currentIndex) {
-                    $('#privilegiosModal').modal('hide');
-                    $('#privilegiosModal').find('form').trigger('reset');
-                }
-            });
 
+        // var iniciar_plugins = function () {
+        //
+        // }
+            var selectivityBoolean = false;
+            var privilegioInit = function () {
+                listar_table_rol();
+                if(selectivityBoolean === false){
+                    pruebanot();
+                    selectivityBoolean = true;
+                }
+            };
+
+        var pruebanot = function () {
             $('.duallistbox').bootstrapDualListbox({
                 preserveSelectionOnMove: 'Movido',
                 nonSelectedListLabel: 'Listas disponibles',
@@ -204,71 +221,56 @@
             });
 
             $('.selectivity').selectivity({
-                allowClear: true,
+                allowClear: false,
                 triggerChange: true,
                 placeholder: 'Seleccione un algo',
                 searchInputPlaceholder: 'Escriba para buscar...'
             });
 
-            $('#rol_select').selectivity().on('change',function (e) {
-                $('#dualPermisos').empty();
-                $.getJSON("/getPermissionWhereRol/"+e.value, function (data) {
-                    $.each(data, function (index,value) {
-                        $('#dualPermisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
-                        $('#dualPermisos').bootstrapDualListbox('refresh', true);
+
+                $('#rol_select').selectivity().on('change',function (e) {
+                    $('#dualPermisos').empty();
+                    $('#dualPermisos').bootstrapDualListbox('refresh', true);
+                    $.getJSON("{{route('permissionWhereRol.show')}}/"+e.value, function (data) {
+                        $.each(data, function (index,value) {
+                            $('#dualPermisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
+                            $('#dualPermisos').bootstrapDualListbox('refresh', true);
+                        });
                     });
                 });
-            });
 
-            // $('#select_dual_roles').selectivity().on('change',function (e) {
-            //     $('#dualPermisos').empty();
-            //     $.getJSON("/getRolAll", function (data) {
-            //         $.each(data, function (index,value) {
-            //             $('#dualPermisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
-            //             dualListboxPermissions.bootstrapDualListbox('refresh', true);
-            //         });
-            //     });
-            // });
-            //
-
-            $('#select_user').selectivity().on('change',function (e) {
-                $('#select_dual_roles').empty();
-                $.getJSON("/getRoleWhereUser/"+e.value, function (data) {
-                    $.each(data, function (index,value) {
-                        $('#select_dual_roles').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
-                        $('#select_dual_roles').bootstrapDualListbox('refresh', true);
+                $('#select_user').selectivity().on('change',function (e) {
+                    $('#select_dual_roles').empty();
+                    $.getJSON("{{route('roleWhereUser.show')}}/"+e.value, function (data) {
+                        $.each(data, function (index,value) {
+                            $('#select_dual_roles').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
+                            $('#select_dual_roles').bootstrapDualListbox('refresh', true);
+                        });
                     });
                 });
-            });
 
-            listar_table_rol();
+
+
         };
 
-        var llenardatos =  function () {
-            $.getJSON("/getRolAll", function (data) {
+
+
+
+        var list_data_roles_selectivity =  function () {
+            $.getJSON("{{route('rolAll.show')}}", function (data) {
                 $.each(data, function (index,value) {
                     $('#rol_select').append('<option value="'+value.id+'">'+value.name+'</option>');
                 });
             });
-        }
+        };
 
-        // var list_data_users_selectivity =  function () {
-        //     $.getJSON("/getUserAll", function (data) {
-        //         $.each(data, function (index,value) {
-        //             $('#select_user').append('<option value="'+value.id+'">'+value.name+'</option>');
-        //         });
-        //     });
-        // }
-
-        // var rolPermissionSubmit = function () {
-        //     var roles = $('#rol_select').selectivity('val');
-        //     data = $('#dualPermisos').val();
-        //     var permissions = $.map( data, function( value, key ) {
-        //         return value;
-        //     });
-        //
-        //     console.log(keys);
-        // }
+        var list_data_users_selectivity =  function () {
+            $.getJSON("{{route('usersAll.show')}}", function (data) {
+                $.each(data, function (index,value) {
+                    $('#select_user').append('<option value="'+value.id+'">'+value.name+'</option>');
+                });
+            });
+        };
 
 
         var listar_table_privilegios = function () {
@@ -282,7 +284,7 @@
                 pagingType: "full_numbers",
                 iDisplayLength: 5,
                 aLengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todo"]],
-                ajax: '{{route('getPrivilegio')}}',
+                ajax: '{{route('userDatatablesPrivilegioAll.show')}}',
                 columns: [
                     {data: 'name'},
                     {data: 'email'},
@@ -359,9 +361,9 @@
                 select: true,
                 fixedColumns:   true,
                 pagingType: "full_numbers",
-                iDisplayLength: 5,
-                aLengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todo"]],
-                ajax: '{{route('getRol')}}',
+                iDisplayLength: 3,
+                aLengthMenu: [[3, 5, 10, 25, 50, 100, -1], [3, 5, 10, 25, 50, 100, "Todo"]],
+                ajax: '{{route('rolDatatablesAll.show')}}',
                 columns: [
                     {data: 'name'},
                     {data: 'guard_name'},
@@ -401,19 +403,20 @@
             });
         };
 
+
         $("#rol_form").submit(function(e) {
             e.preventDefault();
-            var route = "{{ url('/rolCreate') }}";
+            var route = "{{ route('rol.store') }}";
             var token = $('input[name=_token]').val();
-            var name = 'Admin';
-            // var $form = $('#rol_form');
+            var $form = $('#rol_form');
             $.ajax({
-                url: route,
+                url: route + '?' + $form.serialize(),
                 headers: {'X-CSRF-TOKEN': token},
                 type: "POST",
-                datatype: 'json',
-                // data: new FormData($form[0]),
-                data:{name:name},
+                data: new FormData($form[0]),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
                 success: function (data) {
                     if (data.success) {
                         $('#rol_form').trigger('reset');
@@ -434,7 +437,7 @@
         });
 
         var eliminarRol = function (id) {
-            var route = "{{route('deleteRol')}}/"+id;
+            var route = "{{route('rol.destroy',null)}}/"+id;
             var token = $('input[name=_token]').val();
             $.confirm({
                 title: 'Esta seguro de eliminar!',
@@ -494,9 +497,9 @@
             // var permissions = $.map( data, function( value, key ) {
             //     return value;
             // });
-            var route = "{{ route('permissionRolCreate') }}";
+            var route = "{{ route('permissionWhereRolCreate.store') }}";
             var token = $('input[name=_token]').val();
-            // var $form = $('#form_rol_permission');
+            var $form = $('#form_rol_permission');
             $.ajax({
                 url: route,
                 headers: {'X-CSRF-TOKEN': token},

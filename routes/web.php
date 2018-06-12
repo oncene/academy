@@ -28,3 +28,16 @@ Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
     Route::post('/conf','ConfiguracionController@update')->name('configur');
 
 });
+
+Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
+    Route::get('/administracion', function (){ return view('pages.administracion_todo');})->name('administracion');
+
+    Route::resource('rol','RolController', ['except' => ['index','show', 'create', 'edit','update']]);
+    Route::get('userDatatablesPrivilegioAll','RolController@userDatatablesPrivilegioAll')->name('userDatatablesPrivilegioAll.show');
+    Route::get('rolDatatablesAll','RolController@rolDatatablesAll')->name('rolDatatablesAll.show');
+    Route::get('rolAll','RolController@rolAll')->name('rolAll.show');
+    Route::get('permissionWhereRol/{id?}','RolController@permissionWhereRol')->name('permissionWhereRol.show');
+    Route::get('roleWhereUser/{id?}','RolController@roleWhereUser')->name('roleWhereUser.show');
+    Route::post('permissionWhereRolCreate','RolController@permissionWhereRolCreate')->name('permissionWhereRolCreate.store');
+    Route::get('usersAll','UserController@userAll')->name('usersAll.show');
+});

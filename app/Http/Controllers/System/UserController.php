@@ -17,8 +17,8 @@ class UserController extends Controller
         //
     }
 
-    public function getUserAll(){
-        $data = User::select('*')->get();
+    public function userAll(){
+        $data = User::select('id','name')->get();
         return response()->json($data);
     }
 

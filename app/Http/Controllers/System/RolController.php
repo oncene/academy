@@ -27,7 +27,7 @@ class RolController extends Controller
     }
 
     public function rolAll(){
-        $data = Role::orderBy('id','DESC')->get();
+        $data = Role::where('name','LIKE','%'.request('search').'%')->paginate(10);
         return response()->json($data);
     }
 

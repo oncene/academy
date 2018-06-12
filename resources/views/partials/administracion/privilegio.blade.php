@@ -93,9 +93,8 @@
                                                 <label class=" label-control float-right" for="projectinput1">Seleccionar Rol:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="selectivity" id="rol_select" name="rol_select" data-placeholder="Seleccionar el rol">
-                                                    <optgroup id="rol_select_content" label="Roles">
-                                                    </optgroup>
+                                                <select class="select2 form-control" id="rol_select2">
+
                                                 </select>
                                             </div>
                                         </div>
@@ -121,7 +120,7 @@
                                                 <label class=" label-control float-right" for="projectinput1">Ingresar Nombre:</label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="selectivity" id="select_user" data-placeholder="Seleccione un usuario">
+                                                <select class="select2 form-control" id="users_select2">
 
                                                 </select>
                                             </div>
@@ -156,62 +155,6 @@
     @section('script')
     <script>
         $(document).ready(function() {
-            list_data_roles_selectivity();
-            list_data_users_selectivity();
-
-            // iniciar_plugins();
-
-
-            $('#smartwizard').smartWizard({
-                selected: 0,
-                autoAdjustHeight:true,
-                theme: 'default',
-                transitionEffect:'fade',
-                showStepURLhash: false,
-                lang: {  // Language variables
-                    next: 'Siguiente',
-                    previous: 'Anterior'
-                },
-                toolbarSettings: {
-                    toolbarPosition: 'bottom',
-                    toolbarButtonPosition: 'right',
-                    toolbarExtraButtons: [
-                        $('<button></button>').text('Resetear')
-                            .addClass('btn btn-warning')
-                            .on('click', function(){ $('#smartwizard').smartWizard("reset"); }),
-                        $('<button></button>').text('Cerrar')
-                            .addClass('btn btn-danger')
-                            .on('click', function(){ $('#privilegiosModal').modal("hide"); })
-                    ]
-                }
-            });
-            // privilegioInit();
-
-        });
-
-        $('#privilegiosModal').on('hidden.bs.modal', function () {
-            // alert('cerra')
-            // $('#rol_select').selectivity().empty();
-            // $('#select_user').selectivity().empty();
-            $('#privilegiosModal #smartwizard #rol_form').find('form').trigger('reset');
-
-        });
-
-        /********************************************* PRIVILEGIOS ***********************************************/
-
-        // var iniciar_plugins = function () {
-        //
-        // }
-            var selectivityBoolean = false;
-            var privilegioInit = function () {
-                listar_table_rol();
-                if(selectivityBoolean === false){
-                    pruebanot();
-                    selectivityBoolean = true;
-                }
-            };
-
-        var pruebanot = function () {
             $('.duallistbox').bootstrapDualListbox({
                 preserveSelectionOnMove: 'Movido',
                 nonSelectedListLabel: 'Listas disponibles',
@@ -220,57 +163,169 @@
                 filterTextClear: 'Ver todo'
             });
 
-            $('.selectivity').selectivity({
-                allowClear: false,
-                triggerChange: true,
-                placeholder: 'Seleccione un algo',
-                searchInputPlaceholder: 'Escriba para buscar...'
+            $('#rol_select2').select2({
+                dropdownParent: $('#privilegiosModal'),
+                language: "es",
+                ajax:{
+                    url: '{{route('rolAll.show')}}',
+                    dataType: 'json',
+                    delay: 200,
+                    data: function (params) {
+                        return {
+                            search: params.term ? params.term : '',
+                            page: params.page,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.data,
+                            pagination: {
+                                more: (params.page * 10) < data.total
+                            }
+                        };
+                    }
+                },
+                minimumInputLength: 1,
+                templateResult: function (repo) {
+                    if(repo.loading) return repo.name;
+                    var markup = repo.name;
+                    return markup;
+                },
+                templateSelection: function (repo) {
+                    return repo.name;
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
             });
 
+            $('#users_select2').select2({
+                dropdownParent: $('#privilegiosModal'),
+                language: "es",
+                ajax:{
+                    url: '{{route('usersAll.show')}}',
+                    dataType: 'json',
+                    delay: 200,
+                    data: function (params) {
+                        return {
+                            search: params.term ? params.term : '',
+                            page: params.page,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.data,
+                            pagination: {
+                                more: (params.page * 10) < data.total
+                            }
+                        };
+                    }
+                },
+                minimumInputLength: 1,
+                templateResult: function (repo) {
+                    if(repo.loading) return repo.name;
+                    var markup = repo.name;
+                    return markup;
+                },
+                templateSelection: function (repo) {
+                    return repo.name;
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
 
-                $('#rol_select').selectivity().on('change',function (e) {
-                    $('#dualPermisos').empty();
+        });
+
+        var privilegioInit = function () {
+            listar_table_rol();
+        }
+
+        $('#rol_select2').on('select2:select', function (e) {
+            var data_id = e.params.data.id;
+            $('#dualPermisos').empty();
+            $.getJSON("{{route('permissionWhereRol.show')}}/"+data_id, function (data) {
+                $.each(data, function (index,value) {
+                    $('#dualPermisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
                     $('#dualPermisos').bootstrapDualListbox('refresh', true);
-                    $.getJSON("{{route('permissionWhereRol.show')}}/"+e.value, function (data) {
-                        $.each(data, function (index,value) {
-                            $('#dualPermisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
-                            $('#dualPermisos').bootstrapDualListbox('refresh', true);
-                        });
-                    });
-                });
-
-                $('#select_user').selectivity().on('change',function (e) {
-                    $('#select_dual_roles').empty();
-                    $.getJSON("{{route('roleWhereUser.show')}}/"+e.value, function (data) {
-                        $.each(data, function (index,value) {
-                            $('#select_dual_roles').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
-                            $('#select_dual_roles').bootstrapDualListbox('refresh', true);
-                        });
-                    });
-                });
-
-
-
-        };
-
-
-
-
-        var list_data_roles_selectivity =  function () {
-            $.getJSON("{{route('rolAll.show')}}", function (data) {
-                $.each(data, function (index,value) {
-                    $('#rol_select').append('<option value="'+value.id+'">'+value.name+'</option>');
                 });
             });
-        };
+        });
 
-        var list_data_users_selectivity =  function () {
-            $.getJSON("{{route('usersAll.show')}}", function (data) {
+        $('#users_select2').on('select2:select', function (e) {
+            var data_id = e.params.data.id;
+            $('#select_dual_roles').empty();
+            $.getJSON("{{route('roleWhereUser.show')}}/"+data_id, function (data) {
                 $.each(data, function (index,value) {
-                    $('#select_user').append('<option value="'+value.id+'">'+value.name+'</option>');
+                    $('#select_dual_roles').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');
+                    $('#select_dual_roles').bootstrapDualListbox('refresh', true);
                 });
             });
-        };
+        });
+
+
+
+
+        $('#smartwizard').smartWizard({
+            selected: 0,
+            autoAdjustHeight:true,
+            theme: 'default',
+            transitionEffect:'fade',
+            showStepURLhash: false,
+            lang: {  // Language variables
+                next: 'Siguiente',
+                previous: 'Anterior'
+            },
+            toolbarSettings: {
+                toolbarPosition: 'bottom',
+                toolbarButtonPosition: 'right',
+                toolbarExtraButtons: [
+                    $('<button></button>').text('Resetear')
+                        .addClass('btn btn-warning')
+                        .on('click', function(){ $('#smartwizard').smartWizard("reset"); }),
+                    $('<button></button>').text('Cerrar')
+                        .addClass('btn btn-danger')
+                        .on('click', function(){ $('#privilegiosModal').modal("hide"); })
+                ]
+            }
+        });
+
+
+        $('#privilegiosModal').on('hidden.bs.modal', function () {
+            $('#privilegiosModal #smartwizard #rol_form').find('form').trigger('reset');
+
+        });
+
+        /********************************************* SELECTTIVITY ***********************************************/
+        {{--$('.selectivity').selectivity({--}}
+            {{--allowClear: false,--}}
+            {{--// rerenderSelection: true,--}}
+            {{--triggerChange: true,--}}
+            {{--placeholder: 'Seleccione un algo',--}}
+            {{--searchInputPlaceholder: 'Escriba para buscar...'--}}
+        {{--});--}}
+        {{--$('#rol_select').selectivity().on('change',function (e) {--}}
+            {{--$('#dualPermisos').empty();--}}
+            {{--$('#dualPermisos').bootstrapDualListbox('refresh', true);--}}
+            {{--$.getJSON("{{route('permissionWhereRol.show')}}/"+e.value, function (data) {--}}
+                {{--$.each(data, function (index,value) {--}}
+                    {{--$('#dualPermisos').append('<option value="'+value.name+'" '+value.selected+'>'+value.name+'</option>');--}}
+                    {{--$('#dualPermisos').bootstrapDualListbox('refresh', true);--}}
+                {{--});--}}
+            {{--});--}}
+        {{--});--}}
+        {{--var list_data_roles_selectivity =  function () {--}}
+            {{--// $('#rol_select').selectivity('clear');--}}
+            {{--$.getJSON("{{route('rolAll.show')}}", function (data) {--}}
+                {{--$.each(data, function (index,value) {--}}
+                    {{--$('#rol_select').append('<option value="'+value.id+'">'+value.name+'</option>');--}}
+                {{--});--}}
+            {{--});--}}
+
+        {{--};--}}
+
 
 
         var listar_table_privilegios = function () {
@@ -349,8 +404,6 @@
             });
         };
 
-
-
         var listar_table_rol = function () {
             $('#table_rol').DataTable({
                 destroy: true,
@@ -419,7 +472,6 @@
                 contentType: false,
                 success: function (data) {
                     if (data.success) {
-                        $('#rol_form').trigger('reset');
                         messageSuccess('Correcto','Registro adicionado correctamente');
                         listar_table_rol();
                     }
@@ -443,7 +495,6 @@
                 title: 'Esta seguro de eliminar!',
                 content: 'Eliminar el registro seleccionado.',
                 type: 'info',
-                // draggable: true,
                 animation: 'scale',
                 closeAnimation: 'scale',
                 buttons: {
@@ -490,7 +541,7 @@
 
         $("#form_rol_permission").submit(function(e) {
             e.preventDefault();
-            var role = $('#rol_select').selectivity('val');
+            var role = $('#rol_select2').val();
             permissions = JSON.stringify($('#dualPermisos').val());
             console.log(permissions);
             // console.log(JSON.stringify(data));
@@ -510,9 +561,7 @@
                 },
                 success: function (data) {
                     if (data.success) {
-                        $('#form_rol_permission').trigger('reset');
                         messageSuccess('Correcto','Registro adicionado correctamente');
-                        // listar_table_rol();
                     }
                 },
                 error: function (data) {
@@ -523,11 +572,7 @@
                         console.clear();
                     }
                 }
-
             });
-
-
-
         });
 
 

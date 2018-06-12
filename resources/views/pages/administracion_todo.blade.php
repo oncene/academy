@@ -15,16 +15,17 @@
 
 {{--    <link rel="stylesheet" href="{{URL::asset('assets/plugins/multi-select/css/multi-select.css')}}" type="text/css"/>--}}
 
-    <link rel="stylesheet" href="{{URL::asset('assets/css/plugins/forms/wizard.css')}}" type="text/css"/>
+{{--    <link rel="stylesheet" href="{{URL::asset('assets/css/plugins/forms/wizard.css')}}" type="text/css"/>--}}
     <link rel="stylesheet" href="{{URL::asset('assets/vendors/css/pickers/daterange/daterangepicker.css')}}" type="text/css"/>
     <link rel="stylesheet" href="{{URL::asset('assets/css/plugins/pickers/daterange/daterange.css')}}" type="text/css"/>
 
     <link rel="stylesheet" href="{{URL::asset('assets/vendors/css/forms/listbox/bootstrap-duallistbox.min.css')}}" type="text/css"/>
     <link rel="stylesheet" href="{{URL::asset('assets/css/plugins/forms/dual-listbox.css')}}" type="text/css"/>
     <link rel="stylesheet" href="{{URL::asset('assets/plugins/jquery-toast/dist/jquery.toast.min.css')}}" type="text/css"/>
-    <link rel="stylesheet" href="{{URL::asset('assets/vendors/css/forms/selects/selectivity-full.min.css')}}" type="text/css"/>
+{{--    <link rel="stylesheet" href="{{URL::asset('assets/vendors/css/forms/selects/selectivity-full.min.css')}}" type="text/css"/>--}}
 
     <link rel="stylesheet" href="{{URL::asset('assets/plugins/smartwizard/dist/css/smart_wizard.css')}}" type="text/css"/>
+    <link rel="stylesheet" href="{{URL::asset('assets/vendors/css/forms/selects/select2.min.css')}}" type="text/css"/>
 
     {{--<link rel="stylesheet" href="{{URL::asset('assets/css/plugins/forms/selectivity/selectivity.css')}}" type="text/css"/>--}}
 {{--    <link rel="stylesheet" href="{{URL::asset('assets/plugins/selectivity-3.0.6/selectivity-jquery.min.css')}}" type="text/css"/>--}}
@@ -143,22 +144,20 @@
     <script src="{{URL::asset('assets/plugins/datatables/FixedColumns-3.2.4/js/dataTables.fixedColumns.min.js')}}"></script>
     <script src="{{URL::asset('assets/plugins/datatables/Select-1.2.5/js/dataTables.select.min.js')}}"></script>
 
-{{--    <script src="{{URL::asset('assets/plugins/smartwizard/dist/js/jquery.smartWizard.min.js')}}"></script>--}}
+
     <script src="{{URL::asset('assets/plugins/jquery-confirm/jquery-confirm.min.js')}}"></script>
     <script src="{{URL::asset('assets/js/scripts/tooltip/tooltip.js')}}"></script>
 
-{{--    <script src="{{URL::asset('assets/vendors/js/extensions/jquery.steps.js')}}"></script>--}}
+
     <script src="{{URL::asset('assets/vendors/js/pickers/dateTime/moment-with-locales.min.js')}}"></script>
     <script src="{{URL::asset('assets/vendors/js/pickers/daterange/daterangepicker.js')}}"></script>
 {{--    <script src="{{URL::asset('assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>--}}
     <script src="{{URL::asset('assets/vendors/js/forms/listbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
-    <script src="{{URL::asset('assets/vendors/js/forms/select/selectivity-full.min.js')}}"></script>
-
-{{--<script src="{{URL::asset('assets/plugins/selectivity-3.0.6/selectivity.min.js')}}"></script>--}}
-{{--<script src="{{URL::asset('assets/plugins/selectivity-3.0.6/selectivity-jquery.min.js')}}"></script>--}}
+{{--    <script src="{{URL::asset('assets/vendors/js/forms/select/selectivity-full.min.js')}}"></script>--}}
 
     <script src="{{URL::asset('assets/plugins/jquery-toast/dist/jquery.toast.min.js')}}"></script>
     <script src="{{URL::asset('assets/plugins/smartwizard/dist/js/jquery.smartWizard.min.js')}}"></script>
+    <script src="{{URL::asset('assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
 
 {{--    <script src="{{URL::asset('assets/plugins/material-bootstrap-wizard/js/wizard-jquery.bootstrap.js')}}"></script>--}}
 {{--    <script src="{{URL::asset('assets/plugins/material-bootstrap-wizard/js/material-bootstrap-wizard.js')}}"></script>--}}

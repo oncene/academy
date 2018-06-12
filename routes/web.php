@@ -41,3 +41,15 @@ Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
     Route::post('permissionWhereRolCreate','RolController@permissionWhereRolCreate')->name('permissionWhereRolCreate.store');
     Route::get('usersAll','UserController@userAll')->name('usersAll.show');
 });
+
+
+
+
+
+
+
+
+
+
+
+

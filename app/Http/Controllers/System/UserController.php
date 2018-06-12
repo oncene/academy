@@ -18,7 +18,7 @@ class UserController extends Controller
     }
 
     public function userAll(){
-        $data = User::select('id','name')->get();
+        $data = User::where('name','LIKE','%'.request('search').'%')->paginate(10);
         return response()->json($data);
     }
 

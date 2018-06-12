@@ -254,7 +254,10 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 .help-block.form-error{
 	color: #FF4259;
 }
-
+/***************** SELECT2 **************/
+.select2.select2-container{
+	width: auto !important;
+}
 
 
 

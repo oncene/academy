@@ -235,7 +235,7 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 	color: #A3A9C4 !important;
 }
 .modal-step-top{
-	margin-top: -40px ;
+	margin-top: -25px ;
 }
 
 /*input:hover{*/
@@ -254,7 +254,10 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 .help-block.form-error{
 	color: #FF4259;
 }
-
+/***************** SELECT2 **************/
+.select2.select2-container{
+	width: auto !important;
+}
 
 
 

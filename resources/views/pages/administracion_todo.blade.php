@@ -61,8 +61,7 @@
             </div>
             <div class="content-header-right col-md-6 col-12">
                 <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
-                    <button class="btn btn-info round dropdown-toggle dropdown-menu-right box-shadow-2 px-2" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ft-settings icon-left"></i> Settings</button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"><a class="dropdown-item" href="card-bootstrap.html">Cards</a><a class="dropdown-item" href="component-buttons-extended.html">Buttons</a></div>
+                    <button type="button" class="btn btn-info round  dropdown-menu-right box-shadow-2 px-2"  onclick="window.location.reload(true);"><i class="ft-refresh-ccw icon-left"></i> Reload</button>
                 </div>
             </div>
         </div>
@@ -71,7 +70,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Gestiona todos</h4>
+                            <h4 class="card-title">Gestionar todos los modulos</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -232,33 +231,6 @@
             hideAfter: 2500,
         })
     };
-
-
-    //************** multiselect dual **********************/
-    // var duallistbox = function () {
-    //     alert($('.duallistbox').val());
-    // }
-
-    //************** step **********************/
-    // $(".icons-tab-steps").steps({
-    //     headerTag: "h6",
-    //     bodyTag: "fieldset",
-    //     transitionEffect: "fade",
-    //     titleTemplate: '<span class="step">#index#</span> #title#',
-    //     labels: {
-    //         finish: 'Close'
-    //     },
-    //     onFinished: function (event, currentIndex) {
-    //         $('#privilegiosModal').modal('hide');
-    //         $('#privilegiosModal').find('form').trigger('reset');
-    //     }
-    // });
-
-
-
-
-
-
 
 
 

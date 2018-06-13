@@ -5,6 +5,8 @@ namespace App\Http\Controllers\System;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
     /**
@@ -85,6 +87,28 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $data = $user->delete();
+
+        if ($data) {
+            if(Auth::user()->id == $id){
+                Auth::logout();
+                return redirect('login');
+            }else{
+                return response()->json(['success' => 'true']);
+            }
+        }else {
+            return response()->json(['success' => 'false']);
+        }
+    }
+
+    public function restore($id)
+    {
+        $data = User::withTrashed()->find($id)->restore();
+        if ($data) {
+            return response()->json(['success' => 'true']);
+        }else {
+            return response()->json(['success' => 'false']);
+        }
     }
 }

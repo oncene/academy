@@ -1,6 +1,6 @@
 <button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 float-right" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="ft-plus icon-left"></i>Adicionar</button>
-<h5>Gestion de datos de docentes</h5>
-<table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="show_datatable_docente" style="width:100%">
+<h5>Gestion de datos de encuestas</h5>
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="show_datatable_encuesta" style="width:100%">
     <thead>
     <tr>
         <th>Name</th>
@@ -38,9 +38,10 @@
         $(document).ready(function() {
 
         });
+
         /*********************** datatables ********************/
-        var listar_table_docentes = function () {
-            $('#show_datatable_docente').DataTable({
+        var listar_table_encuesta = function () {
+            $('#show_datatable_encuesta').DataTable({
                 destroy: true,
                 responsive: true,
                 processing: true,

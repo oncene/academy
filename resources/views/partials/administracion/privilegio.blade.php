@@ -1,7 +1,7 @@
 
-    <button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 float-right" data-toggle="modal" data-target="#privilegiosModal" onclick="privilegioInit();"><i class="ft-plus"></i>Adicionar</button>
+    <button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 float-right" data-toggle="modal" data-target="#privilegiosModal" onclick="privilegioInit();"><i class="ft-plus icon-left"></i>Adicionar</button>
     <p>Gestion de privilegios del sistema</p>
-    <table id="table_privilegios" class="table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
+    <table id="show_datatable_privilegio" class="table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
         <thead>
         <tr>
             <th>Nombre</th>
@@ -329,7 +329,7 @@
 
 
         var listar_table_privilegios = function () {
-            $('#table_privilegios').DataTable({
+            $('#show_datatable_privilegio').DataTable({
                 destroy: true,
                 responsive: true,
                 processing: true,

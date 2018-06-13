@@ -258,6 +258,10 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 .select2.select2-container{
 	width: auto !important;
 }
-
-
-
+/***************** CARD BORDER **************/
+.border-pink.border-lighten-2 {
+	border: 2px solid #F06292 !important;
+}
+.border-teal.border-lighten-2 {
+	border: 2px solid #4DB6AC !important;
+}

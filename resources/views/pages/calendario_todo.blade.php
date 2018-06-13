@@ -1,6 +1,5 @@
-
 @extends('layouts.master')
-@section('title','Calendario SOA')
+@section('title','Calendario')
 @push('styles')
     <link rel="stylesheet" href="{{URL::asset('assets/plugins/fullcalendar/fullcalendar.min.css')}}" type="text/css"/>
     <link rel="stylesheet" href="{{URL::asset('assets/css/plugins/calendars/fullcalendar.css')}}" type="text/css"/>

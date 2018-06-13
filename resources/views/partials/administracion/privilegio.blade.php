@@ -1,6 +1,6 @@
 
     <button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 float-right" data-toggle="modal" data-target="#privilegiosModal" onclick="privilegioInit();"><i class="ft-plus"></i>Adicionar</button>
-    <p>Biscuit i</p>
+    <p>Gestion de privilegios del sistema</p>
     <table id="table_privilegios" class="table table-striped table-bordered table-hover dt-responsive nowrap" style="width:100%">
         <thead>
         <tr>
@@ -344,44 +344,48 @@
                     {data: 'name'},
                     {data: 'email'},
                     {data: 'privilegio',render:function (data, type, full, meta) {
+                            if(full.privilegio){
                             var dataArrayReturn = [];
                             var dataAll = full.privilegio;
-                        var separador = ",";
-                        var dataArray = dataAll.split(separador);
-                        if(dataArray.length > 1) {
-                            $.each(dataArray, function (index, value) {
-                                if (value === 'Administrador') {
-                                    dataArrayReturn[index] = '<span class="badge badge-danger">' + value + '</span>';
-                                } else if (value === 'Secretariado') {
-                                    dataArrayReturn[index] = '<span class="badge badge-warning">' + value + '</span>';
-                                } else if (value === 'Docente') {
-                                    dataArrayReturn[index] = '<span class="badge badge-info">' + value + '</span>';
-                                } else if (value === null) {
-                                    dataArrayReturn[index] = '<span class="badge badge-default">' + value ? value : "" + '</span>';
-                                } else {
-                                    dataArrayReturn[index] = '<span class="badge badge-primary">' + value + '</span>';
+                            var separador = ",";
+                            var dataArray = dataAll.split(separador);
+                            if(dataArray.length > 1) {
+                                $.each(dataArray, function (index, value) {
+                                    if (value === 'Administrador') {
+                                        dataArrayReturn[index] = '<span class="badge badge-danger">' + value + '</span>';
+                                    } else if (value === 'Secretariado') {
+                                        dataArrayReturn[index] = '<span class="badge badge-warning">' + value + '</span>';
+                                    } else if (value === 'Docente') {
+                                        dataArrayReturn[index] = '<span class="badge badge-info">' + value + '</span>';
+                                    } else if (value === null) {
+                                        dataArrayReturn[index] = '<span class="badge badge-default">' + value ? value : "" + '</span>';
+                                    } else {
+                                        dataArrayReturn[index] = '<span class="badge badge-primary">' + value + '</span>';
+                                    }
+                                });
+                                return dataArrayReturn.toString();
+                            }else {
+                                if(dataArray.toString() === 'Administrador'){
+                                    return '<span class="badge badge-danger">'+dataArray+'</span>';
+                                }else if (dataArray.toString() === 'Secretariado'){
+                                    return '<span class="badge badge-warning">'+dataArray+'</span>';
+                                }else if(dataArray.toString() === 'Docente'){
+                                    return '<span class="badge badge-info">'+dataArray+'</span>';
+                                }else if(dataArray.toString() === null){
+                                    return '<span class="badge badge-default">'+dataArray ? dataArray : "" +'</span>';
+                                }else{
+                                    return '<span class="badge badge-primary">'+dataArray+'</span>';
                                 }
-                            });
-                            return dataArrayReturn;
-                        }else{
-                            if(dataArray.toString() === 'Administrador'){
-                                return '<span class="badge badge-danger">'+dataArray+'</span>';
-                            }else if (dataArray.toString() === 'Secretariado'){
-                                return '<span class="badge badge-warning">'+dataArray+'</span>';
-                            }else if(dataArray.toString() === 'Docente'){
-                                return '<span class="badge badge-info">'+dataArray+'</span>';
-                            }else if(dataArray.toString() === null){
-                                return '<span class="badge badge-default">'+dataArray ? dataArray : "" +'</span>';
-                            }else{
-                                return '<span class="badge badge-primary">'+dataArray+'</span>';
                             }
-                        }
+                            }else{
+                                    return ' ';
+                            }
                         }},
                     {data: 'deleted_at',render:function (data, type, full, meta) {
-                            if(full.deleted_at === null){
-                                return '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="DESHABILITAR" title="DESHABILITAR" onclick="editarActividad('+full.id+');">HABILITADO</button>'
+                            if(full.deleted_at){
+                                return '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="USUARIO DESHABILITADO" title="USUARIO DESHABILITADO" onclick="habilitarUsuario('+full.id+');">HABILITAR</button>'
                             }else{
-                                return '<button class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="HABILITAR" title="HABILITAR" onclick="editarActividad('+full.id+');">DESHABILITADO</button>'
+                                return '<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="USUARIO HABILITADO" title="USUARIO HABILITADO" onclick="deshabilitarUsuario('+full.id+');">DESHABILITAR</button>'
                             }
                         }},
                     {orderable: false, "searchable":false,render:function (data, type, full, meta ) {
@@ -626,6 +630,107 @@
                 }
             });
         });
+
+
+        var deshabilitarUsuario = function (id) {
+            var route = "{{route('user.delete')}}/"+id;
+            var token = $('input[name=_token]').val();
+            $.confirm({
+                title: 'Esta seguro de deshabilitar al usuario?',
+                content: 'Cuando se deshabilite el usuario no podra ingresar al sistema.',
+                type: 'info',
+                animation: 'scale',
+                closeAnimation: 'scale',
+                buttons: {
+                    confirm: {
+                        text: 'OK',
+                        btnClass: 'btn btn-blue',
+                        keys: [
+                            'enter',
+                        ],
+                        action: function () {
+                            $.ajax({
+                                url:route,
+                                headers: {'X-CSRF-TOKEN':token},
+                                type: 'DELETE',
+                                dataType : 'json',
+                                success: function(data)
+                                {
+                                    if (data.success == 'true'){
+                                        messageWarning('Correcto','Usuario deshabilitado correctamente');
+                                        listar_table_privilegios();
+                                    }
+                                    if (data.success == 'false'){
+                                        messageWarning('Advertencia','El registro no puede eliminarse');
+                                    }
+                                },
+                                error: function (data)
+                                {
+                                    if (data.error){
+                                        messageError('Error','Error al eliminar el registro');
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        keys: [
+                            'esc',
+                        ],
+                    }
+                }
+            });
+        };
+
+        var habilitarUsuario = function (id) {
+            var route = "{{route('user.restore')}}/"+id;
+            var token = $('input[name=_token]').val();
+            $.confirm({
+                title: 'Esta seguro de habilitar al usuario!',
+                content: 'Despues de habilitar al usuario, podra ingresar al sistema nuevamente.',
+                type: 'info',
+                animation: 'scale',
+                closeAnimation: 'scale',
+                buttons: {
+                    confirm: {
+                        text: 'OK',
+                        btnClass: 'btn btn-blue',
+                        keys: [
+                            'enter',
+                        ],
+                        action: function () {
+                            $.ajax({
+                                url:route,
+                                headers: {'X-CSRF-TOKEN':token},
+                                type: 'GET',
+                                dataType : 'json',
+                                success: function(data)
+                                {
+                                    if (data.success == 'true'){
+                                        messageSuccess('Correcto','Usuario habilitado correctamente');
+                                        listar_table_privilegios();
+                                    }
+                                    if (data.success == 'false'){
+                                        messageWarning('Advertencia','El registro no puede eliminarse');
+                                    }
+                                },
+                                error: function (data)
+                                {
+                                    if (data.error){
+                                        messageError('Error','Error al eliminar el registro');
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        keys: [
+                            'esc',
+                        ],
+                    }
+                }
+            });
+        };
 
 
 

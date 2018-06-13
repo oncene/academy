@@ -176,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+//        Spatie\PartialCache\PartialCacheServiceProvider::class,
 
     ],
 
@@ -227,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'FormatTime' => App\Helpers\FormatTime::class,
+//        'PartialCache' => Spatie\PartialCache\PartialCacheFacade::class,
     ],
 
 ];

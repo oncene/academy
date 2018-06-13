@@ -41,6 +41,9 @@ Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
     Route::post('permissionWhereRolCreate','RolController@permissionWhereRolCreate')->name('permissionWhereRolCreate.store');
     Route::post('userWhereRolCreate','RolController@userWhereRolCreate')->name('userWhereRolCreate.store');
     Route::get('usersAll','UserController@userAll')->name('usersAll.show');
+    Route::delete('userDelete/{id?}','UserController@destroy')->name('user.delete');
+    Route::get('userRestore/{id?}','UserController@restore')->name('user.restore');
+//    Route::resource('users','UserController');
 });
 
 

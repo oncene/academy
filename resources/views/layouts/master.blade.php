@@ -233,12 +233,12 @@
 <script src="{{URL::asset('assets/js/scripts.js')}}" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-        $.validate({
-            lang : 'es',
-            modules : 'sanitize, date, security, file, html5',
-            validateOnBlur : true,
-            showHelpOnFocus : true,
-        });
+        // $.validate({
+        //     lang : 'es',
+        //     modules : 'sanitize, date, security, file, html5',
+        //     validateOnBlur : true,
+        //     showHelpOnFocus : true,
+        // });
         moment.locale('es');
         $(".select2").select2({
             language: "es"

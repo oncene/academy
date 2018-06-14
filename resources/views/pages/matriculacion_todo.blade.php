@@ -1,8 +1,9 @@
 @extends('layouts.master')
 @section('title','Actividades generales')
 @push('styles')
-    <link rel="stylesheet" href="{{URL::asset('assets/plugins/bootstrap-cascader/css/vendor.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{URL::asset('assets/plugins/bootstrap-cascader/css/bootstrap-cascader.min.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{URL::asset('assets/plugins/bootstrap-cascader-edit/css/cascade-select-edit.css')}}" type="text/css" />
+{{--    <link rel="stylesheet" href="{{URL::asset('assets/plugins/bootstrap-cascader-edit/css/vendor.min.css')}}" type="text/css" />--}}
+{{--    <link rel="stylesheet" href="{{URL::asset('assets/plugins/bootstrap-cascader-edit/css/bootstrap-cascader.min.css')}}" type="text/css" />--}}
 
 @endpush
 @section('styles')
@@ -43,7 +44,7 @@
 
                             <h4 class="card-title float-left text-uppercase">Lista de estudiantes matriculados</h4></br>
                             <span>Para personalizar el listado de los estudiantes matriculados <code>Seleccione en la gestion</code>.</span>
-                            <div id="cascader1"></div>
+                            <div id="cascader1" class="form-constrol"></div>
                             <span><code id="result_cascader"></code>.</span>
                             <button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-0 float-right" data-toggle="modal" data-target="#privilegiosModal"><i class="ft-plus icon-left"></i>Adicionar</button>
                             <button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-0 float-right" data-toggle="modal" data-target="#privilegiosModal"><i class="ft-plus icon-left"></i>Adicionar</button>
@@ -61,7 +62,7 @@
                                         <div class="col-xl-3 col-md-6 col-12">
                                             <div class="card border-teal cad-boder border-lighten-2">
                                                 <div class="text-center">
-                                                    <div class="card-body">
+                                                    <div class="card-body card-body-image-top">
                                                         <img src="assets/images/user.jpg" class="rounded-circle  height-150"
                                                              alt="Card image">
                                                     </div>
@@ -79,7 +80,7 @@
                                         <div class="col-xl-3 col-md-6 col-12">
                                             <div class="card border-pink card-border border-lighten-2">
                                                 <div class="text-center">
-                                                    <div class="card-body">
+                                                    <div class="card-body card-body-image-top">
                                                         <img src="assets/images/user.jpg" class="rounded-circle  height-150"
                                                              alt="Card image">
                                                     </div>
@@ -113,8 +114,8 @@
 
 @endsection
 @push('scripts')
-    <script src="{{URL::asset('assets/plugins/bootstrap-cascader/js/vendor.min.js')}}"></script>
-    <script src="{{URL::asset('assets/plugins/bootstrap-cascader/js/bootstrap-cascader.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/bootstrap-cascader-edit/js/vendor.min.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/bootstrap-cascader-edit/js/bootstrap-cascader.js')}}"></script>
 
 
 @endpush
@@ -123,7 +124,8 @@
     <script>
         $(document).ready(function() {
             var localData =[
-                {c: 'zhao', n: '赵', d: [{c: 'jia', n: '甲'}, {c: 'yi', n: '已'}, {c: 'bing', n: '丙'}]},
+                {c: 'EM', n: 'Estudiantes matriculados', d: [{c: '2016', n: '2016'}, {c: '2017', n: '2017'}, {c: '2018', n: '2018'}, {c: '2019', n: '2019'}]},
+                {c: 'ENM', n: 'Estudiantes no matriculados', d: [{c: '2016', n: '2016'}, {c: '2017', n: '2017'}, {c: '2018', n: '2018'}, {c: '2019', n: '2019'}]},
             ]
             $('#cascader1').bsCascader({
                 openOnHover: true,

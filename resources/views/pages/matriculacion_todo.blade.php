@@ -123,18 +123,99 @@
 
     <script>
         $(document).ready(function() {
-            var localData =[
-                {c: 'EM', n: 'Estudiantes matriculados', d: [{c: '2016', n: '2016'}, {c: '2017', n: '2017'}, {c: '2018', n: '2018'}, {c: '2019', n: '2019'}]},
-                {c: 'ENM', n: 'Estudiantes no matriculados', d: [{c: '2016', n: '2016'}, {c: '2017', n: '2017'}, {c: '2018', n: '2018'}, {c: '2019', n: '2019'}]},
-            ]
+            var brut ={};
+
+            /************Pruebas*********************/
+                 {{--$.getJSON("{{route('getdataprueba')}}", function (data) {--}}
+                    {{--// var dataArrayListData = $.map(data, function (value, key) {--}}
+                    {{--//      return '{c: "' + value.ye + '",n: "' + value.ye + '"}';--}}
+                    {{--//  });--}}
+                     {{--var dataArrayListData = [];--}}
+                     {{--$.each(data,function (index,value) {--}}
+                         {{--dataArrayListData[index]={c: ""+value.ye+"",n: ""+value.ye+"" };--}}
+                     {{--});--}}
+                     {{--// ListData = '[' + dataArrayListData.toString() + ']';--}}
+                             {{--console.log(dataArrayListData);--}}
+                     {{--// console.log(JSON.parse(JSON.stringify(dataArrayListData)));--}}
+                 {{--});--}}
+
+            {{--function getData() {--}}
+                {{--return $.ajax({--}}
+                    {{--url : "{{route('pruebajson.show')}}",--}}
+                    {{--type: 'GET'--}}
+                {{--});--}}
+            {{--}--}}
+            {{--function handleData(data /* , textStatus, jqXHR */ ) {--}}
+                {{--console.log(data);--}}
+            {{--}--}}
+            {{--getData().done(handleData);--}}
+
+            // var arreglo = [
+            //     {dato: 'asdasd'},
+            //     {dato:'234234'}
+            // ];
+            //
+            // var nuevoArreglo = arreglo.map(function(o) {
+            //     return Object.keys(o).reduce(function(array, key) {
+            //         return array.concat([key, o[key]]);
+            //     }, []);
+            // });
+            //
+            // console.log(nuevoArreglo);
+
+
+            // var usesss = new Object();
+            // var localData =[
+            //     {c: 'EM', n: 'Estudiantes matriculados',
+            //         d: [{c: '2018',n: '2018'},{'c': '2018','n': '2018'},{'c': '2018','n': '2018'}],
+            //     },
+            //     {c: 'ENM', n: 'Estudiantes no matriculados', d: [{c: '2016', 'n': '2016'}, {c: '2017', n: '2017'}, {c: '2018', n: '2018'}, {c: '2019', n: '2019'}]},
+            // ];
+            // pruebaCallback(function(queHizo){
+                // console.log((JSON.stringify(queHizo).substr(1).slice(0,-1)));
+                // localData.splice(2,0,queHizo);
+                // localData.push(JSON.parse('['+JSON.stringify(queHizo).substr(1).slice(0,-1)+']'));
+                // console.log($.parseJSON(JSON.stringify(queHizo).substr(1).slice(0,-1)));
+                // console.log(JSON.stringify(eval('('+queHizo+')')));
+                // $.each(queHizo, function( index, value ) {
+                //     usesss[index]=value;
+                // });
+                // usesss.push(queHizo);
+            //     return queHizo;
+            // });
+            {{--localData.push({[{{c: 'hola',n:'hola'},{c: 'hola',n:'hola'}}]});--}}
+            /************Pruebas fin*********************/
+
+
+            function pruebaCallback(callback){
+                $.getJSON("{{route('pruebajson.show')}}", function (data) {
+                    callback(data);
+                });
+            }
+
+            var mockLazyLoadFn = function () {
+                return function (openedItems, callback) {
+                    setTimeout(function () {
+                        pruebaCallback(function(queHizo){
+                            callback(queHizo);
+                        });
+                    }, 500);
+                }
+            };
+
             $('#cascader1').bsCascader({
                 openOnHover: true,
                 splitChar: ' / ',
-                loadData: function (openedItems, callback) {
-                    callback(localData);
-                }
+                loadData: mockLazyLoadFn(),
             }).on('bs.cascader.change', function (e, oldValue, newValue) {
+                console.log(newValue);
+                var dataArrayCascade = [];
                 $('#result_cascader').text(JSON.stringify(newValue));
+                $.each(newValue,function (index,value) {
+                    dataArrayCascade[index]=value.code
+                });
+                nuevaCadena = dataArrayCascade.toString().replace(',', '/');
+                console.log(nuevaCadena);
             });
         });
 

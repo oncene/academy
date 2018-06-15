@@ -17,6 +17,31 @@ class RolController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function pruebaUser(){
+        $users =  DB::SELECT(DB::RAW('select year(created_at) as ye from users'));
+
+//        $params = [
+//            'title' => ['Brands Listing',$users],
+//            'brands' => $dataArray,
+//        ];
+
+        $dataArray = array();
+        foreach ($users as $json_decoded) {
+            $dataArray[] = array("c"=>''.$json_decoded->ye.'',"n"=>''.$json_decoded->ye.'');
+        }
+//        {c: 'EM', n: 'Estudiantes matriculados',
+//                            d: [{'c': '2018','n': '2018'},{'c': '2018','n': '2018'},{'c': '2018','n': '2018'}],
+//                        },
+
+
+
+        $params = [
+            ['c' => 'EM','n'=>'Estudiantes matriculados','d'=>$dataArray],
+            ['c' => 'ENM','n'=>'Estudiantes no matriculados','d'=>$dataArray],
+        ];
+        return response()->json($params);
+    }
+
     public function userDatatablesPrivilegioAll(){
         $data = DB::select(DB::RAW('select u.id,u.name,u.email,group_concat(r.name SEPARATOR ",") as privilegio,u.deleted_at from users u left join model_has_roles mr on u.id=mr.model_id left join roles r on mr.role_id=r.id group by u.id,u.name,u.email,u.deleted_at'));
         return datatables()->of($data)->toJson();

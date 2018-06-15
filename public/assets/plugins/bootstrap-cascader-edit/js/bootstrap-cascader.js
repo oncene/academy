@@ -6,7 +6,7 @@
     splitChar: ' ',
     cls: '',
     btnCls: 'btn-default',
-    placeHolder: '请选择',
+    placeHolder: 'Seleccionar...',
     dropUp: false,
     lazy: false,
     openOnHover: false,

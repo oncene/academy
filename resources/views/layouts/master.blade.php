@@ -240,9 +240,9 @@
         //     showHelpOnFocus : true,
         // });
         moment.locale('es');
-        $(".select2").select2({
-            language: "es"
-        });
+        // $(".select2").select2({
+        //     language: "es"
+        // });
 
         //************** TOAST **********************/
         var messageWarning= function (messageTitle,messageText) {

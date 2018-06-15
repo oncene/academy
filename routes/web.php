@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//use DB;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -51,6 +51,10 @@ Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
     Route::get('actividades', function (){ return view('pages.actividad_todo');})->name('actividades');
     Route::get('reportes', function (){ return view('pages.reporte_todo');})->name('reportes');
     Route::get('configuraciones', function (){ return view('pages.configuracion_todo');})->name('configuraciones');
+
+
+    Route::get('getdataprueba',function (){return \Illuminate\Support\Facades\DB::SELECT(\Illuminate\Support\Facades\DB::RAW('select year(created_at) as ye from users'));})->name('getdataprueba');
+    Route::get('/pruebajson','RolController@pruebaUser')->name('pruebajson.show');
 });
 
 

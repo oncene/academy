@@ -36,20 +36,40 @@
         </div>
         <div class="content-body">
             <section class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Gestionar todos los modulos</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                {{--contenido--}}
-                                contenido aqui
-
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Expand/Fullscreen Example</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-plus"></i></a></li>
+                                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <p>Oat cake ice cream candy chocolate cake chocolate cake cotton
+                                        candy dragée apple pie. Brownie carrot cake candy canes bonbon
+                                        fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
+                                        chocolate cake liquorice. Apple pie sugar plum powder donut
+                                        soufflé.
+                                    </p>
+                                    <p>Dessert jelly-o jelly dessert jujubes croissant. Marshmallow
+                                        pudding pastry halvah dessert apple pie caramels bonbon toffee.
+                                        Jelly beans brownie sweet bear claw biscuit. Marshmallow jelly
+                                        gummies marzipan tootsie roll topping.</p>
+                                    <p>Cotton candy wafer powder bonbon topping. Sugar plum danish tootsie
+                                        roll jelly tart icing bear claw. Gingerbread brownie sweet
+                                        roll cheesecake chocolate cake jelly beans marzipan gummies
+                                        dessert.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
             </section>
 
         </div>

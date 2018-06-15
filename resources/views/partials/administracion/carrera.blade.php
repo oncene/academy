@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 float-right" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="ft-plus"></i>Adicionar</button>
-<h5>Oat cake marzipa</h5>
-<table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="example" style="width:100%">
+<button type="button" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 float-right" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="ft-plus icon-left"></i>Adicionar</button>
+<h5>Gestion de datos de carreras</h5>
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" id="show_datatable_carrera" style="width:100%">
     <thead>
     <tr>
         <th>Name</th>
@@ -34,53 +34,56 @@
 </table>
 
 @section('script')
-<script>
-    /*********************** datatables ********************/
-    var listarExample = function () {
-        $('#example').DataTable({
-            destroy: true,
-            responsive: true,
-            processing: true,
-            // deferRender: true,
-            select: true,
-            fixedColumns:   true,
-            pagingType: "full_numbers",
-            iDisplayLength: 5,
-            aLengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todo"]],
-            language: {
-                "url": "{{URL::asset('assets/plugins/datatables/Spanish.json')}}",
-            },
-            dom: "<'row'<'col-sm-6'l>>"+
-            "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-            columnDefs: [
-                {
-                    targets: 0,
-                    className: 'noVis'
-                },
-            ],
-            buttons: [
+    <script>
+        $(document).ready(function() {
 
-                'copy',
-                'csv',
-                {
-                    extend: 'excelHtml5',
-                },
-                {
-                    extend: 'pdfHtml5',
-                    pageSize: 'legal',
-                    orientation: 'landscape',
-                    title: 'Listado cursos',
-                    messageTop: 'este es un listado de cursos imprimido.',
-                    exportOptions: {
-                        columns: [0,1,2,3 ]
-                    },
-                },
-            ]
         });
-    };
+        /*********************** datatables ********************/
+        var listar_table_carreras = function () {
+            $('#show_datatable_carrera').DataTable({
+                destroy: true,
+                responsive: true,
+                processing: true,
+                // deferRender: true,
+                select: true,
+                fixedColumns:   true,
+                pagingType: "full_numbers",
+                iDisplayLength: 5,
+                aLengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todo"]],
+                language: {
+                    "url": "{{URL::asset('assets/plugins/datatables/Spanish.json')}}",
+                },
+                dom: "<'row'<'col-sm-6'l>>"+
+                "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                columnDefs: [
+                    {
+                        targets: 0,
+                        className: 'noVis'
+                    },
+                ],
+                buttons: [
 
-</script>
-@parent
+                    'copy',
+                    'csv',
+                    {
+                        extend: 'excelHtml5',
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        pageSize: 'legal',
+                        orientation: 'landscape',
+                        title: 'Listado cursos',
+                        messageTop: 'este es un listado de cursos imprimido.',
+                        exportOptions: {
+                            columns: [0,1,2,3 ]
+                        },
+                    },
+                ]
+            });
+        };
+
+    </script>
+    @parent
 @endsection

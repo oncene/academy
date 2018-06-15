@@ -1,5 +1,5 @@
-
 @extends('layouts.master')
+@section('title','Administracion de modulos')
 @push('styles')
     <link rel="stylesheet" href="{{URL::asset('assets/plugins/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{URL::asset('assets/plugins/datatables/Buttons-1.5.1/css/buttons.bootstrap4.min.css')}}" type="text/css" />
@@ -89,7 +89,7 @@
                                         @can('administracion.privilegios.listar')
                                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#privilegios" aria-expanded="false">PRIVILEGIOS</a></li>
                                         @endcan
-                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#usuarios" aria-expanded="false">USUARIOS</a></li>
+                                        {{--<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#usuarios" aria-expanded="false">USUARIOS</a></li>--}}
                                     </ul>
                                     <div class="tab-content px-1">
                                         <div role="tabpanel" class="tab-pane active" id="carreras" >
@@ -101,6 +101,28 @@
                                         <div class="tab-pane" id="docentes" >
                                             @include('partials.administracion.docente')
                                         </div>
+                                        <div class="tab-pane" id="estudiantes" >
+                                            @include('partials.administracion.estudiante')
+                                        </div>
+                                        <div class="tab-pane" id="apoderados" >
+                                            @include('partials.administracion.apoderado')
+                                        </div>
+                                        <div class="tab-pane" id="horarios" >
+                                            @include('partials.administracion.horario')
+                                        </div>
+                                        <div class="tab-pane" id="semestre" >
+                                            @include('partials.administracion.semestre')
+                                        </div>
+                                        <div class="tab-pane" id="evaluacion" >
+                                            @include('partials.administracion.evaluacion')
+                                        </div>
+                                        <div class="tab-pane" id="encuesta" >
+                                            @include('partials.administracion.encuesta')
+                                        </div>
+                                        <div class="tab-pane" id="publico" >
+                                            @include('partials.administracion.publico')
+                                        </div>
+
                                         <div class="tab-pane" id="privilegios" >
                                             @include('partials.administracion.privilegio')
                                         </div>
@@ -173,7 +195,16 @@
         $(".select2").select2({
             language: "es"
         });
-        listarExample();
+        listar_table_carreras();
+        listar_table_materias();
+        listar_table_docentes();
+        listar_table_estudiantes();
+        listar_table_apoderados();
+        listar_table_horarios();
+        listar_table_semestre();
+        listar_table_evaluacion();
+        listar_table_encuesta();
+        listar_table_publico();
         listar_table_privilegios();
 
     });

@@ -233,12 +233,70 @@
 <script src="{{URL::asset('assets/js/scripts.js')}}" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-        $.validate({
-            lang : 'es',
-            modules : 'sanitize, date, security, file, html5',
-            validateOnBlur : true,
-            showHelpOnFocus : true,
-        });
+        // $.validate({
+        //     lang : 'es',
+        //     modules : 'sanitize, date, security, file, html5',
+        //     validateOnBlur : true,
+        //     showHelpOnFocus : true,
+        // });
+        moment.locale('es');
+        // $(".select2").select2({
+        //     language: "es"
+        // });
+
+        //************** TOAST **********************/
+        var messageWarning= function (messageTitle,messageText) {
+            $.toast({
+                heading: messageTitle,
+                text: messageText,
+                icon: 'warning',
+                loader: true,
+                loaderBg: '#fea617',
+                bgColor: '#FEC107',
+                textColor: 'white',
+                position: 'top-right',
+                hideAfter: 2500,
+            })
+        };
+        var messageInfo= function (messageTitle,messageText) {
+            $.toast({
+                heading: messageTitle,
+                text: messageText,
+                icon: 'info',
+                loader: true,
+                loaderBg: '#1283EC',
+                bgColor: '#03A9F3',
+                textColor: 'white',
+                position: 'top-right',
+                hideAfter: 2500,
+            })
+        };
+        var messageSuccess = function (messageTitle,messageText) {
+            $.toast({
+                heading: messageTitle,
+                text: messageText,
+                icon: 'success',
+                loader: true,
+                loaderBg: '#04d0a8',
+                bgColor: '#08DDC1',
+                textColor: 'white',
+                position: 'top-right',
+                hideAfter: 2500,
+            })
+        };
+        var messageError = function (messageTitle,messageText) {
+            $.toast({
+                heading: messageTitle,
+                text: messageText,
+                icon: 'error',
+                loader: true,
+                loaderBg: '#c61b48',
+                bgColor: '#FF1356',
+                textColor: 'white',
+                position: 'top-right',
+                hideAfter: 2500,
+            })
+        };
 
     });
 </script>

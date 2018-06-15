@@ -1,5 +1,5 @@
-
 @extends('layouts.master')
+@section('title','File Manager')
 @push('styles')
 
 @endpush

@@ -16,7 +16,8 @@ class CreatePersonalsTable extends Migration
         Schema::create('personals', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->string('imagen',50)->default('user.jpg')->nullable();
+            $table->string('imagen_perfil',100)->default('user.jpg')->nullable();
+            $table->string('imagen_portada',100)->default('portada.jpg')->nullable();
             $table->integer('ci');
             $table->string('expedido',20);
             $table->string('nombres',20);

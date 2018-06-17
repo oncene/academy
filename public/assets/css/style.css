@@ -22,7 +22,13 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .panel-show-left-show{
 	display: none;
 }
-
+.main-menu.menu-light .navigation > li.open > a {
+	color: #545766;
+	background: whitesmoke;
+	border-left: 6px solid #1E9FF2 !important;
+	font-weight: 500;
+	color: #1e9ff2;
+}
 
 
 /***************************MODAL LEFT ********************/
@@ -289,3 +295,33 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 	margin-left: 15px;
 	margin-right: 15px;
 }
+.jplist-drop-down .jplist-dd-panel:after{
+	z-index: 10 !important;
+}
+.jplist-margin-top{
+	margin-top: -30px;
+}
+/***************** CARD TEXT FONT PROFILE **************/
+.card-text-font{
+	color: #FFFFFF;
+	text-shadow: 1px 1px 4px #464855;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

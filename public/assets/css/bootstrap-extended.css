@@ -1207,7 +1207,7 @@ select.form-control {
 .card-image-position-right-mid {
   position: absolute;
   top: 23px;
-  margin-left: 280px;
+  margin-left: auto;
   width: 250px; }
 
 .card-font-style-black {

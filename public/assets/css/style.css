@@ -68,7 +68,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 
 /***************************CONF color ********************/
-.config-color{
+.config-color li{
 	height: 35px;
     width: 35px;
     display: inline-block !important;
@@ -306,7 +306,10 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 	color: #FFFFFF;
 	text-shadow: 1px 1px 4px #464855;
 }
-
+.card-body-color-theme{
+	margin-left: -20px;
+	margin-right: -20px;
+}
 
 
 

@@ -241,7 +241,8 @@ form {
     color: #2C303B;
     line-height: 3rem;
     margin-bottom: 20px;
-    border-bottom: 1px solid #2C303B; }
+    border-bottom: 1px solid #BABFC7;
+  }
     form .form-section i {
       font-size: 20px;
       margin-left: 5px;
@@ -859,7 +860,7 @@ select.form-control {
     color: #6B6F82; }
 
 .navbar-semi-light {
-  background: #6B6F82; }
+  background: #168DEE; }
   .navbar-semi-light .navbar-header {
     background: #FFFFFF; }
     .navbar-semi-light .navbar-header .brand-text {

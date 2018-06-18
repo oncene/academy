@@ -1,3 +1,6 @@
+@php($active = Illuminate\Support\Facades\DB::select( Illuminate\Support\Facades\DB::raw("select c.descripcion from configuracions cf left join users u on cf.user_id=u.id left join colors c on cf.color_id=c.id where u.id=".\Illuminate\Support\Facades\Auth::user()->id." and cf.deleted_at is null") ))
+@php($logs = Illuminate\Support\Facades\DB::select( Illuminate\Support\Facades\DB::raw("select l.id,l.user_id,r.name as rol,l.login_fecha,l.login_ip,if(p.nombres is null,u.name,concat(p.nombres,' ',p.paterno)) as nombres,p.imagen_perfil,p.direccion,p.email,p.telefono,p.celular from logs l left join users u on l.user_id=u.id left join personals p on u.id=p.user_id left join model_has_roles mr on u.id=mr.model_id left join roles r on mr.role_id=r.id where l.deleted_at is null order by l.login_fecha desc limit 15") ))
+
 <!DOCTYPE html>
 <html class="loading" lang="{{ app()->getLocale() }}" data-textdirection="ltr">
 <head>
@@ -23,6 +26,7 @@
     <!-- BEGIN Page Level CSS-->
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/css/core/menu/menu-types/vertical-menu.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/css/plugins/forms/validation/form-validation.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('assets/plugins/jquery-toast/dist/jquery.toast.min.css')}}" type="text/css"/>
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/css/style.css')}}">
@@ -33,7 +37,7 @@
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
 
 <!-- fixed-top-->
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-info navbar-shadow">
+<nav id="nav-bar-color" class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light {{$active[0]->descripcion ?: ''}} navbar-shadow">
     <div class="navbar-wrapper">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
@@ -83,18 +87,18 @@
             <div class="card" id="card-panel-hide-left">
                 <div class="text-center">
                     <div class="card-body">
-                        <img src="{{URL::asset('assets/images/portrait/medium/avatar-m-1.png')}}" class="rounded-circle  height-150" alt="Card image">
+                        <img src='@if(isset(Auth::user()->personal[0])) {{route('images.show',Auth::user()->personal[0]['imagen_perfil']) ?: route('images.show','perfil.jpg')}} @else {{route('images.show','perfil.jpg')}} @endif' class="rounded-circle  height-150 imagen_perfil_picture" alt="Card image">
                     </div>
                     <div class="card-body d-md-block card-body-top">
-                        <h4 class="card-title">{{ Auth::user()->personal[0]['nombres'] ?: Auth::user()->name}}</h4>
-                        <h6 class="card-subtitle text-muted">{{\Illuminate\Support\Facades\Auth::user()->roles[0]->name}}</h6>
+                        <h4 class="card-title">@if(isset(Auth::user()->personal[0])) {{Auth::user()->personal[0]['nombres'].' '.Auth::user()->personal[0]['paterno']}} @else {{Auth::user()->name}} @endif</h4>
+                        <h6 class="card-subtitle text-muted">@if(isset(Auth::user()->roles[0])){{Auth::user()->roles[0]->name}} @else 'sin rol' @endif</h6>
                     </div>
                 </div>
             </div>
             <div class="card panel-show-left panel-show-left-show" id="card-panel-hide-left-show">
                 <div class="text-center">
                     <div class="card-body">
-                        <img src="{{URL::asset('assets/images/portrait/medium/avatar-m-1.png')}}" class="rounded-circle  " alt="Card image" style="height: 45px">
+                        <img src='@if(isset(Auth::user()->personal[0])) {{route('images.show',Auth::user()->personal[0]['imagen_perfil']) ?: 'perfil.jpg'}} @else {{route('images.show','perfil.jpg')}} @endif' class="rounded-circle  imagen_perfil_picture" alt="Card image" style="height: 45px">
                     </div>
                 </div>
             </div>
@@ -108,7 +112,7 @@
             <li class="@if(request()->is('actividades')) open @endif  nav-item"><a href="{{url('actividades')}}"><i class="ft-crosshair"></i><span class="menu-title" data-i18n="">Actividades</span></a></li>
             <li class="@if(request()->is('reportes')) open @endif  nav-item"><a href="{{url('reportes')}}"><i class="ft-printer"></i><span class="menu-title" data-i18n="">Reportes</span></a></li>
             <li class="@if(request()->is('administracion')) open @endif  nav-item"><a href="{{url('administracion')}}"><i class="ft-server"></i><span class="menu-title" data-i18n="">Administracion</span></a></li>
-            <li class="@if(request()->is('configuraciones')) open @endif  nav-item"><a href="{{url('configuraciones')}}"><i class="ft-command"></i><span class="menu-title" data-i18n="">Configuracion</span></a></li>
+            <li class="@if(request()->is('configuraciones')) open @endif  nav-item"><a href="{{url('configuraciones')}}"><i class="ft-sliders"></i><span class="menu-title" data-i18n="">Configuracion</span></a></li>
         </ul>
     </div>
 </div>
@@ -126,7 +130,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="card-content">
-                            <div class="card-body">
+                            {{--<div class="card-body">--}}
                                 <ul class="nav nav-tabs nav-linetriangle">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="baseIcon-tab31" data-toggle="tab" aria-controls="tabIcon31"
@@ -140,65 +144,65 @@
                                 <div class="tab-content px-1 pt-1">
                                     <div role="tabpanel" class="tab-pane active" id="tabIcon31" aria-expanded="true"
                                          aria-labelledby="baseIcon-tab31">
-                                        <h4>Temas</h4>
-                                        <div class="card-body">
+                                        <br>
+                                        <h4 class="form-section"><i class="ft-sun icon-left"> </i> Temas</h4>
+                                        <div class="card-body card-body-color-theme" >
                                             <!--                                                <span class="badge badge badge-success float-right mr-2">New</span>-->
-                                            <ul class="list-unstyled">
-                                                <li  class="active">
-                                                    <span class="badge badge badge-success config-color"></span>
-                                                </li>
-                                                <li >
-                                                    <span class="badge badge badge-success config-color"></span>
-                                                </li>
-                                                <li >
-                                                    <span class="badge badge badge-success config-color"></span>
-                                                </li>
-                                                <li>
-                                                    <span class="badge badge badge-success config-color"></span>
-                                                </li>
-                                                <li >
-                                                    <span class="badge badge badge-success config-color"></span>
-                                                </li>
-                                                <li >
-                                                    <span class="badge badge badge-success config-color"></span>
-                                                </li>
+                                            <ul class="list-unstyled config-color" id="card-color-theme">
+                                                <li id="1" class="bg-primary"></li>
+                                                <li id="2" class="bg-primary bg-darken-2"></li>
+                                                <li id="3" class="bg-danger"></li>
+                                                <li id="4" class="bg-danger bg-lighten-2"></li>
+                                                <li id="5" class="bg-success"></li>
+                                                <li id="6" class="bg-success bg-darken-3"></li>
+                                                <li id="7" class="bg-warning"></li>
+                                                <li id="8" class="bg-warning bg-lighten-2"></li>
+                                                <li id="9" class="bg-warning bg-darken-3"></li>
+                                                <li id="10" class="bg-info"></li>
+                                                <li id="11" class="bg-blue bg-darken-2"></li>
+                                                <li id="12" class="bg-red"></li>
+                                                <li id="13" class="bg-red bg-darken-2"></li>
+                                                <li id="14" class="bg-pink"></li>
+                                                <li id="15" class="bg-pink bg-darken-2"></li>
+                                                <li id="16" class="bg-purple"></li>
+                                                <li id="17" class="bg-purple bg-darken-2"></li>
+                                                <li id="18" class="bg-cyan"></li>
+                                                <li id="19" class="bg-cyan bg-darken-2"></li>
+                                                <li id="20" class="bg-teal"></li>
+                                                <li id="21" class="bg-teal bg-darken-2"></li>
+                                                <li id="22" class="bg-yellow bg-darken-2"></li>
+                                                <li id="23" class="bg-yellow bg-darken-3"></li>
+                                                <li id="24" class="bg-yellow bg-darken-4"></li>
                                             </ul>
+                                        </div>
+                                        </br></br></br></br></br></br></br></br></br></br>
+                                        <h4 class="form-section"><i class="ft-sliders icon-left"> </i> Actualizar datos personales</h4>
+                                        <div class="card-body card-body-color-theme">
+                                            <a href="{{url('configuraciones')}}" class="btn btn-info btn-min-width btn-round btn-glow mr-1 mt-1 btn-block"><i class="ft-sliders icon-left"></i>Ir a configuraciones</a>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="tabIcon32" aria-labelledby="baseIcon-tab32">
                                         <h4>Usuarios conectados recientemente</h4>
 
+                                        @foreach($logs as $log)
                                         <div class="media">
                                             <div class="media-left mr-1">
-                                                <a href="#">
+                                                <a>
                                                     <span class="avatar avatar-online">
-                                                      <img src="{{URL::asset('assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar">
+                                                      <img src="{{route('images.show',$log->imagen_perfil) ?: route('images.show','perfil.jpg')}}" alt="avatar">
                                                     </span>
                                                 </a>
                                             </div>
                                             <div class="media-body">
-                                                <p class="text-bold-600 mb-0"><a href="#">Jason Ansley</a></p>
-                                                <p>Conectado hace 1 hora. <br><b>IP: </b>192.168.56.2<br><b>DIR: </b>La paz, av ballivian, los andes<br><b>P: </b>68975896</p>
+                                                <p class="text-bold-600 mb-0"><a href="#">{{$log->nombres}}</a></br><span>{{$log->rol}}</span></p>
+                                                <p>Conectado {{ \FormatTime::LongTimeFilter($log->login_fecha) }}. <br><b>IP: </b>{{$log->login_ip}} <b>P: </b>{{$log->celular}}</p>
                                             </div>
                                         </div>
-                                        <div class="media">
-                                            <div class="media-left mr-1">
-                                                <a href="#">
-                                                    <span class="avatar avatar-online">
-                                                      <img src="{{URL::asset('assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar">
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="text-bold-600 mb-0"><a href="#">Jason Ansley</a></p>
-                                                <p>Conectado hace 1 hora. <br><b>IP: </b>192.168.56.2<br><b>DIR: </b>La paz, av ballivian, los andes<br><b>P: </b>68975896</p>
-                                            </div>
-                                        </div>
-
+                                        @endforeach
 
                                     </div>
                                 </div>
-                            </div>
+                            {{--</div>--}}
                         </div>
 
                     </div>
@@ -220,7 +224,7 @@
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
 <!-- END PAGE VENDOR JS-->
-
+<script src="{{URL::asset('assets/plugins/jquery-toast/dist/jquery.toast.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/jQuery-Form-Validator/jquery.form-validator.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/moment/moment.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/moment/moment-with-locales.js')}}"></script>
@@ -240,10 +244,57 @@
         //     validateOnBlur : true,
         //     showHelpOnFocus : true,
         // });
-        moment.locale('es');
+        // moment.locale('es');
         // $(".select2").select2({
         //     language: "es"
         // });
+        llenar_color_navbar();
+    });
+        $('#card-color-theme li').click(function(){
+            var color_id = $(this).attr('id');
+            // var class_name = $(this).attr('class');
+            var token = $('input[name=_token]').val();
+            var route = "{{route('configureColor.update')}}";
+            // $('#nav-bar-color').removeClass('bg-');
+
+            // $('#nav-bar-color').addClass(class_name).change();
+            // alert(color_id+class_name)
+            $.ajax({
+                url: route,
+                headers: {'X-CSRF-TOKEN': token},
+                type: 'POST',
+                datatype: 'json',
+                data: {
+                    color_id: color_id,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        messageSuccess('Correcto','Color cambiado correctamente');
+                        // llenar_color_navbar();
+                        window.location.reload(true);
+
+                    }
+                },
+                error: function (data) {
+                    if (data.error) {
+                        $.each(data.responseJSON.errors, function (index, error) {
+                            messageError('Error al procesar',error);
+                        });
+                    }
+                    if (data.status == 422) {
+                        console.clear();
+                    }
+                }
+            });
+        })
+
+        {{--var llenar_color_navbar = function () {--}}
+            {{--$.getJSON("{{route('colorAll.show')}}", function (data) {--}}
+                {{--$.each(data, function (index,value) {--}}
+                    {{--$('#nav-bar-color').addClass(value.descripcion).change();--}}
+                {{--});--}}
+            {{--});--}}
+        {{--}--}}
 
         //************** TOAST **********************/
         var messageWarning= function (messageTitle,messageText) {
@@ -299,7 +350,7 @@
             })
         };
 
-    });
+
 </script>
 @stack('scripts')
 @yield('scripts')

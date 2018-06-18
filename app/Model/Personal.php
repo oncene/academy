@@ -10,11 +10,11 @@ class Personal extends Model
     use Notifiable;
     use SoftDeletes;
 
-    protected $table = 'logs';
+    protected $table = 'personals';
     protected $primarykey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'id', 'user_id', 'imagen','ci','expedido','nombres','paterno','materno','fecha_nacimiento','sexo','direccion','ocupacion','estado_civil','email','telefono','celular','historial_academico','especialidad','red_facebook','red_twitter','red_instagram','red_google',
+        'id', 'user_id', 'imagen_perfil', 'imagen_portada','ci','expedido','nombres','paterno','materno','fecha_nacimiento','sexo','direccion','ocupacion','estado_civil','email','telefono','celular','historial_academico','especialidad','red_facebook','red_twitter','red_instagram','red_google',
     ];
 
     public function user() {

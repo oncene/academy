@@ -22,7 +22,13 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .panel-show-left-show{
 	display: none;
 }
-
+.main-menu.menu-light .navigation > li.open > a {
+	color: #545766;
+	background: whitesmoke;
+	border-left: 6px solid #1E9FF2 !important;
+	font-weight: 500;
+	color: #1e9ff2;
+}
 
 
 /***************************MODAL LEFT ********************/
@@ -62,7 +68,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 
 /***************************CONF color ********************/
-.config-color{
+.config-color li{
 	height: 35px;
     width: 35px;
     display: inline-block !important;
@@ -271,3 +277,54 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 .card-body-image-top{
 	margin-bottom: -30px !important;
 }
+/***************** CASCADER PLUGIN**************/
+.cascader-col-md-3{
+	max-width: 150px;
+}
+.cascader-col-md-4{
+	max-width: 200px;
+}
+.cascader-col-md-5{
+	max-width: 300px;
+}
+.cascader-col-md-6{
+	max-width: 400px;
+}
+/***************** JPLIST PLUGIN ORDER GRID /LIST **************/
+.box.jplist{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+.jplist-drop-down .jplist-dd-panel:after{
+	z-index: 10 !important;
+}
+.jplist-margin-top{
+	margin-top: -30px;
+}
+/***************** CARD TEXT FONT PROFILE **************/
+.card-text-font{
+	color: #FFFFFF;
+	text-shadow: 1px 1px 4px #464855;
+}
+.card-body-color-theme{
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

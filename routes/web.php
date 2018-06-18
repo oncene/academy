@@ -50,11 +50,18 @@ Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
     Route::get('horarios', function (){ return view('pages.horario_todo');})->name('horarios');
     Route::get('actividades', function (){ return view('pages.actividad_todo');})->name('actividades');
     Route::get('reportes', function (){ return view('pages.reporte_todo');})->name('reportes');
-    Route::get('configuraciones', function (){ return view('pages.configuracion_todo');})->name('configuraciones');
+    Route::resource('configuraciones', 'ConfiguracionController', ['except' => ['show', 'create', 'edit']]);
+//    Route::post('configuracionesUpdate', 'ConfiguracionController@update')->name('configuraciones.show');
+    Route::get('personalAll', 'ConfiguracionController@personalAll')->name('personalAll.show');
+    Route::post('configuracionUpdate', 'ConfiguracionController@configuracionUpdate')->name('configuracionUpdate.update');
 
 
     Route::get('getdataprueba',function (){return \Illuminate\Support\Facades\DB::SELECT(\Illuminate\Support\Facades\DB::RAW('select year(created_at) as ye from users'));})->name('getdataprueba');
     Route::get('/pruebajson','RolController@pruebaUser')->name('pruebajson.show');
+
+    Route::get('images/{filename?}','ConfiguracionController@perfilImagenAll')->name('images.show');
+    Route::get('colorAll','ConfiguracionController@colorAll')->name('colorAll.show');
+    Route::post('configureColor','ConfiguracionController@configureColor')->name('configureColor.update');
 });
 
 

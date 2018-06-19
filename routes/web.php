@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//use DB;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -62,6 +62,14 @@ Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
     Route::get('images/{filename?}','ConfiguracionController@perfilImagenAll')->name('images.show');
     Route::get('colorAll','ConfiguracionController@colorAll')->name('colorAll.show');
     Route::post('configureColor','ConfiguracionController@configureColor')->name('configureColor.update');
+
+
+    Route::resource('carrera','CarreraController');
+    Route::get('carreraDatatablesAll','CarreraController@carreraDatatablesAll')->name('carreraDatatablesAll.show');
+    Route::resource('mension','MensionController');
+    Route::get('mensionDatatablesAll','MensionController@mensionDatatablesAll')->name('mensionDatatablesAll.show');
+    Route::resource('nivel','NivelController');
+    Route::get('nivelDatatablesAll','NivelController@nivelDatatablesAll')->name('nivelDatatablesAll.show');
 });
 
 

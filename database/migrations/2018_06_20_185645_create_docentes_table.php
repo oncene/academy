@@ -15,7 +15,13 @@ class CreateDocentesTable extends Migration
     {
         Schema::create('docentes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('personal_id')->unsigned()->nullable();
+            $table->string('especialidad');
+            $table->string('historial_academico');
+            $table->string('experiencia');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('personal_id')->references('id')->on('personals')->onDelete('set null');
         });
     }
 

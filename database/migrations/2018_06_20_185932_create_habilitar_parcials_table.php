@@ -15,7 +15,12 @@ class CreateHabilitarParcialsTable extends Migration
     {
         Schema::create('habilitar_parcials', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('parcial_id')->unsigned()->nullable();
+            $table->dateTime('fecha_inicio');
+            $table->dateTime('fecha_fin');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('parcial_id')->references('id')->on('parcials')->onDelete('set null');
         });
     }
 

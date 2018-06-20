@@ -15,7 +15,9 @@ class CreateParalelosTable extends Migration
     {
         Schema::create('paralelos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

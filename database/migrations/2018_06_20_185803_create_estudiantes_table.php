@@ -15,7 +15,11 @@ class CreateEstudiantesTable extends Migration
     {
         Schema::create('estudiantes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('personal_id')->unsigned()->nullable();
+            $table->string('profesion_futuro');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('personal_id')->references('id')->on('personals')->onDelete('set null');
         });
     }
 

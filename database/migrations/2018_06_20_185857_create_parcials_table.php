@@ -15,7 +15,9 @@ class CreateParcialsTable extends Migration
     {
         Schema::create('parcials', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre',20);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

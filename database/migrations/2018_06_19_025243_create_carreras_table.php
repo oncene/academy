@@ -15,13 +15,11 @@ class CreateCarrerasTable extends Migration
     {
         Schema::create('carreras', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('nivel_id')->unsigned()->nullable();
             $table->integer('mension_id')->unsigned()->nullable();
             $table->string('nombre');
             $table->string('resolucion');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('nivel_id')->references('id')->on('nivels')->onDelete('set null');
             $table->foreign('mension_id')->references('id')->on('mensions')->onDelete('set null');
         });
     }

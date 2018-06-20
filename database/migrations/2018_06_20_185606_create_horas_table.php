@@ -15,7 +15,11 @@ class CreateHorasTable extends Migration
     {
         Schema::create('horas', function (Blueprint $table) {
             $table->increments('id');
+            $table->time('hora_inicio');
+            $table->time('hora_fin');
+            $table->string('turno',10);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

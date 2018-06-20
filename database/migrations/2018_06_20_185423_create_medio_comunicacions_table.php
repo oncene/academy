@@ -15,7 +15,9 @@ class CreateMedioComunicacionsTable extends Migration
     {
         Schema::create('medio_comunicacions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,7 +15,12 @@ class CreateAdministrativosTable extends Migration
     {
         Schema::create('administrativos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('personal_id')->unsigned()->nullable();
+            $table->string('ocupacion_institucion');
+            $table->string('historial_academico');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('personal_id')->references('id')->on('personals')->onDelete('set null');
         });
     }
 

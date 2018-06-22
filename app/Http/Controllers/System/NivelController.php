@@ -43,7 +43,7 @@ class NivelController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            $this->validate($request, ['nombre' => 'required'],['nombre.required' =>'El nombre es obligatorio',]);
+            $this->validate($request, ['nombre' => 'required|unique:nivels,nombre']);
             $data = new Nivel();
             $data->nombre = $request->input('nombre');
             $result = $data->save();

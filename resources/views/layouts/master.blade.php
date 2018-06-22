@@ -1,5 +1,5 @@
 @php($active = Illuminate\Support\Facades\DB::select( Illuminate\Support\Facades\DB::raw("select c.descripcion from configuracions cf left join users u on cf.user_id=u.id left join colors c on cf.color_id=c.id where u.id=".\Illuminate\Support\Facades\Auth::user()->id." and cf.deleted_at is null") ))
-@php($logs = Illuminate\Support\Facades\DB::select( Illuminate\Support\Facades\DB::raw("select l.id,l.user_id,r.name as rol,l.login_fecha,l.login_ip,if(p.nombres is null,u.name,concat(p.nombres,' ',p.paterno)) as nombres,p.imagen_perfil,p.direccion,p.email,p.telefono,p.celular from logs l left join users u on l.user_id=u.id left join personals p on u.id=p.user_id left join model_has_roles mr on u.id=mr.model_id left join roles r on mr.role_id=r.id where l.deleted_at is null order by l.login_fecha desc limit 15") ))
+@php($logs = Illuminate\Support\Facades\DB::select( Illuminate\Support\Facades\DB::raw("select l.id,l.user_id,r.name as rol,l.login_fecha,l.login_ip,if(p.nombres is null,u.name,concat(p.nombres,' ',p.paterno)) as nombres,p.imagen_perfil,p.email,p.telefono,p.celular from logs l left join users u on l.user_id=u.id left join personals p on u.id=p.user_id left join model_has_roles mr on u.id=mr.model_id left join roles r on mr.role_id=r.id where l.deleted_at is null order by l.login_fecha desc limit 15") ))
 
 <!DOCTYPE html>
 <html class="loading" lang="{{ app()->getLocale() }}" data-textdirection="ltr">
@@ -238,17 +238,14 @@
 <script src="{{URL::asset('assets/js/scripts.js')}}" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-        // $.validate({
-        //     lang : 'es',
-        //     modules : 'sanitize, date, security, file, html5',
-        //     validateOnBlur : true,
-        //     showHelpOnFocus : true,
-        // });
-        // moment.locale('es');
-        // $(".select2").select2({
-        //     language: "es"
-        // });
-        llenar_color_navbar();
+        $.validate({
+            lang : 'es',
+            modules : 'sanitize, date, security, file, html5',
+            validateOnBlur : true ,
+            showHelpOnFocus : true ,
+            addSuggestions : true
+        });
+        moment.locale('es');
     });
         $('#card-color-theme li').click(function(){
             var color_id = $(this).attr('id');

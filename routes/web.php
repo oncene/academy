@@ -63,13 +63,18 @@ Route::group(['middleware' => 'auth','namespace' => 'System'], function () {
     Route::get('colorAll','ConfiguracionController@colorAll')->name('colorAll.show');
     Route::post('configureColor','ConfiguracionController@configureColor')->name('configureColor.update');
 
-
+// ROUTES CARRERAS
     Route::resource('carrera','CarreraController');
     Route::get('carreraDatatablesAll','CarreraController@carreraDatatablesAll')->name('carreraDatatablesAll.show');
+    Route::get('carreraModalDatatablesAll','CarreraController@carreraModalDatatablesAll')->name('carreraModalDatatablesAll.show');
+    Route::post('carreraAsignacion','CarreraController@carreraAsignacion')->name('carreraAsignacion.store');
     Route::resource('mension','MensionController');
     Route::get('mensionDatatablesAll','MensionController@mensionDatatablesAll')->name('mensionDatatablesAll.show');
     Route::resource('nivel','NivelController');
     Route::get('nivelDatatablesAll','NivelController@nivelDatatablesAll')->name('nivelDatatablesAll.show');
+    Route::resource('semestre','SemestreController');
+    Route::get('semestreDatatablesAll','SemestreController@semestreDatatablesAll')->name('semestreDatatablesAll.show');
+    Route::get('semestreCarreraAsignacionDatatablesAll','SemestreController@semestreCarreraAsignacionDatatablesAll')->name('semestreCarreraAsignacionDatatablesAll.show');
 });
 
 

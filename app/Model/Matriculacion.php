@@ -5,15 +5,15 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Aula extends Model
+class Matriculacion extends Model
 {
     use Notifiable;
     use SoftDeletes;
 
-    protected $table = 'aulas';
+    protected $table = 'matriculacions';
     protected $primarykey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'id', 'nombre', 'tipo_aula',
+        'id', 'carrnivsemmat_id', 'carrnivsemparal_id', 'inscribir_id', 'fecha',
     ];
 }

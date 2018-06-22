@@ -14,6 +14,6 @@ class Carrera extends Model
     protected $primarykey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'id', 'nombre', 'resolucion', 'nivel_id', 'mension_id',
+        'id', 'nombre', 'resolucion', 'mension_id',
     ];
 }

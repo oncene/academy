@@ -19,8 +19,8 @@ class CreateResourcesMigrationTable extends Migration
             $table->integer('nivel_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('set null');
-            $table->foreign('nivel_id')->references('id')->on('nivels')->onDelete('set null');
+            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
+            $table->foreign('nivel_id')->references('id')->on('nivels')->onDelete('cascade');
         });
 
         Schema::create('carrniv_semestres', function (Blueprint $table) {
@@ -29,8 +29,8 @@ class CreateResourcesMigrationTable extends Migration
             $table->integer('semestre_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('carrniv_id')->references('id')->on('carrera_nivels')->onDelete('set null');
-            $table->foreign('semestre_id')->references('id')->on('semestres')->onDelete('set null');
+            $table->foreign('carrniv_id')->references('id')->on('carrera_nivels')->onDelete('cascade');
+            $table->foreign('semestre_id')->references('id')->on('semestres')->onDelete('cascade');
         });
 
         Schema::create('carrnivsem_materias', function (Blueprint $table) {
@@ -39,8 +39,8 @@ class CreateResourcesMigrationTable extends Migration
             $table->integer('materia_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('carrnivsem_id')->references('id')->on('carrniv_semestres')->onDelete('set null');
-            $table->foreign('materia_id')->references('id')->on('materias')->onDelete('set null');
+            $table->foreign('carrnivsem_id')->references('id')->on('carrniv_semestres')->onDelete('cascade');
+            $table->foreign('materia_id')->references('id')->on('materias')->onDelete('cascade');
         });
 
         Schema::create('carrniv_docentes', function (Blueprint $table) {
@@ -49,8 +49,8 @@ class CreateResourcesMigrationTable extends Migration
             $table->integer('docente_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('carrniv_id')->references('id')->on('carrera_nivels')->onDelete('set null');
-            $table->foreign('docente_id')->references('id')->on('docentes')->onDelete('set null');
+            $table->foreign('carrniv_id')->references('id')->on('carrera_nivels')->onDelete('cascade');
+            $table->foreign('docente_id')->references('id')->on('docentes')->onDelete('cascade');
         });
 
         Schema::create('carrnivsemmat_docentes', function (Blueprint $table) {
@@ -59,8 +59,8 @@ class CreateResourcesMigrationTable extends Migration
             $table->integer('docente_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('carrnivsemmat_id')->references('id')->on('carrnivsem_materias')->onDelete('set null');
-            $table->foreign('docente_id')->references('id')->on('docentes')->onDelete('set null');
+            $table->foreign('carrnivsemmat_id')->references('id')->on('carrnivsem_materias')->onDelete('cascade');
+            $table->foreign('docente_id')->references('id')->on('docentes')->onDelete('cascade');
         });
 
         Schema::create('carrnivsemmat_aulas', function (Blueprint $table) {
@@ -69,8 +69,8 @@ class CreateResourcesMigrationTable extends Migration
             $table->integer('aula_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('carrnivsemmat_id')->references('id')->on('carrnivsem_materias')->onDelete('set null');
-            $table->foreign('aula_id')->references('id')->on('aulas')->onDelete('set null');
+            $table->foreign('carrnivsemmat_id')->references('id')->on('carrnivsem_materias')->onDelete('cascade');
+            $table->foreign('aula_id')->references('id')->on('aulas')->onDelete('cascade');
         });
 
         Schema::create('carrnivsem_paralelos', function (Blueprint $table) {
@@ -79,8 +79,8 @@ class CreateResourcesMigrationTable extends Migration
             $table->integer('paralelo_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('carrnivsem_id')->references('id')->on('carrniv_semestres')->onDelete('set null');
-            $table->foreign('paralelo_id')->references('id')->on('paralelos')->onDelete('set null');
+            $table->foreign('carrnivsem_id')->references('id')->on('carrniv_semestres')->onDelete('cascade');
+            $table->foreign('paralelo_id')->references('id')->on('paralelos')->onDelete('cascade');
         });
 
         Schema::create('horarios', function (Blueprint $table) {
@@ -187,7 +187,7 @@ class CreateResourcesMigrationTable extends Migration
             $table->string('estado')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('matriculacion_id')->references('id')->on('matriculacions')->onDelete('set null');
+            $table->foreign('matriculacion_id')->references('id')->on('matriculacions')->onDelete('cascade');
         });
     }
 /*

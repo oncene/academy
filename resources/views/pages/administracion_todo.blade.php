@@ -180,10 +180,6 @@
     <script src="{{URL::asset('assets/plugins/smartwizard/dist/js/jquery.smartWizard.min.js')}}"></script>
     <script src="{{URL::asset('assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
 
-{{--    <script src="{{URL::asset('assets/plugins/material-bootstrap-wizard/js/wizard-jquery.bootstrap.js')}}"></script>--}}
-{{--    <script src="{{URL::asset('assets/plugins/material-bootstrap-wizard/js/material-bootstrap-wizard.js')}}"></script>--}}
-
-
 
 
 @endpush

@@ -45,7 +45,7 @@ class MensionController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            $this->validate($request, ['nombre' => 'required'],['nombre.required' =>'El nombre es obligatorio',]);
+            $this->validate($request, ['nombre' => 'required|unique:mensions,nombre']);
             $data = new Mension();
             $data->nombre = $request->input('nombre');
             $result = $data->save();

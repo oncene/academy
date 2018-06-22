@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\System;
 
+use App\Model\Semestre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class SemestreController extends Controller
 {
     /**
@@ -14,9 +15,19 @@ class SemestreController extends Controller
      */
     public function index()
     {
-        //
+        $data = Semestre::where('nombre','LIKE','%'.request('search').'%')->paginate(10);
+        return response()->json($data);
     }
 
+    public function semestreDatatablesAll(){
+        $data = Semestre::all();
+        return datatables()->of($data)->toJson();
+    }
+
+    public function semestreCarreraAsignacionDatatablesAll(){
+        $data = DB::SELECT(DB::RAW('select c.nombre as carrera,m.nombre as mension,n.nombre as nivel,group_concat(s.nombre) as semestre from carrera_nivels cn left join carrniv_semestres cns on cn.id=cns.carrniv_id left join carreras c on cn.carrera_id=c.id left join nivels n on cn.nivel_id=n.id left join semestres s on cns.semestre_id=s.id left join mensions m on c.mension_id=m.id group by cn.id,cn.carrera_id,cn.nivel_id'));
+        return datatables()->of($data)->toJson();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +46,17 @@ class SemestreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $this->validate($request, ['nombre' => 'required|unique:semestres,nombre']);
+            $data = new Semestre();
+            $data->nombre = $request->input('nombre');
+            $result = $data->save();
+            if ($result) {
+                return response()->json(['success' => 'true']);
+            }else {
+                return response()->json(['success' => 'false']);
+            }
+        }
     }
 
     /**
@@ -80,6 +101,13 @@ class SemestreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Semestre::find($id);
+        $result = $data->delete();
+
+        if ($result) {
+            return response()->json(['success' => 'true']);
+        }else {
+            return response()->json(['success' => 'false']);
+        }
     }
 }
